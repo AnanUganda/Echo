@@ -15,7 +15,6 @@ export default function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -198,20 +197,14 @@ export default function Signup() {
                     <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium text-text-primary">Phone Number</label>
-                    <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium text-text-primary">WhatsApp Number</label>
                     <input type="tel" required value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium text-text-primary">Date of Birth</label>
-                    <input type="date" required value={dob} onChange={(e) => setDob(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
-                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-text-primary">Date of Birth</label>
+                  <input type="date" required value={dob} onChange={(e) => setDob(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -350,7 +343,7 @@ export default function Signup() {
           <input type="hidden" name="First Name" value={firstName} />
           <input type="hidden" name="Last Name" value={lastName} />
           <input type="hidden" name="Email" value={email} />
-          <input type="hidden" name="Mobile" value={phone} />
+          <input type="hidden" name="Mobile" value={whatsapp} />
           <input type="hidden" name="Address - Country / Region" value="United States" />
           <input type="hidden" name="Address - City" value={city} />
           <input type="hidden" name="Address - Zip / Postal Code" value={zip} />
