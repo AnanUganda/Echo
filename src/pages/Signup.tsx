@@ -4,9 +4,7 @@ import { useState, useRef } from 'react';
 import type { FormEvent } from 'react';
 
 const TRIPS = [
-  { id: 'summer-2027', name: 'Summer Vision Trip', date: 'June 15 - June 28, 2027', status: 'Open' },
-  { id: 'fall-2027', name: 'Medical & Ministry Team', date: 'October 4 - October 18, 2027', status: 'Filling Fast' },
-  { id: 'spring-2028', name: 'Church Builders Partnership', date: 'March 10 - March 24, 2028', status: 'Open' },
+  { id: 'april-2027', name: 'Kenya Mission Trip', date: 'April 16 - April 26, 2027', status: 'Open' },
 ];
 
 export default function Signup() {
@@ -249,6 +247,18 @@ export default function Signup() {
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-medium text-text-primary">Do you have any previous missions or cross-cultural experience?</label>
                   <textarea rows={3} required value={experience} onChange={(e) => setExperience(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none resize-none"></textarea>
+                </div>
+
+                <div className="flex items-start gap-3 mt-4 bg-background p-4 rounded-xl border border-earth-500/20">
+                  <input 
+                    type="checkbox" 
+                    id="deposit"
+                    required
+                    className="mt-1 w-5 h-5 text-terracotta focus:ring-terracotta rounded border-earth-500/30 accent-terracotta cursor-pointer shrink-0"
+                  />
+                  <label htmlFor="deposit" className="text-sm text-text-secondary leading-relaxed cursor-pointer">
+                    I understand that my application will only be processed upon receipt of a <strong>$50 deposit</strong>. This deposit is refundable if I am unable to attend and cancel the trip, but becomes non-refundable once I officially commit to the team.
+                  </label>
                 </div>
 
                 <div className="flex justify-between mt-6">
