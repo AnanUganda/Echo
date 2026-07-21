@@ -11,10 +11,10 @@ import tileSafariImg from '../assets/images/Safari image.JPG';
 import tileDrumImg from '../assets/images/drumming.jpg';
 // Our Story
 import storyImg from '../assets/images/Brian.jpg';
-// Meet the Team (placeholder photos until sterling/stennet/another are added)
-import teamImg1 from '../assets/images/josh.jpg';
-import teamImg2 from '../assets/images/alie.jpg';
-import teamImg3 from '../assets/images/IMG_9676.JPG';
+// Meet the Team
+import teamImg1 from '../assets/images/sterling1.jpg';
+import teamImg2 from '../assets/images/sterling.jpg';
+import teamImg3 from '../assets/images/stennet.jpg';
 
 /* ---------------- Hero floating collage ---------------- */
 
@@ -54,21 +54,15 @@ const VALUES = [
 const TEAM = [
   {
     img: teamImg1,
-    name: 'Trip Director',
-    role: 'Leadership & Vision',
-    bio: 'Leads the heart and direction of ECHO, ensuring every trip stays Christ-centered and relational.',
-  },
-  {
-    img: teamImg2,
-    name: 'Kenya Field Coordinator',
-    role: 'On-the-Ground Partnerships',
-    bio: 'Connects teams with local churches and ministries and walks with communities year-round.',
+    name: 'Sterling Kurts',
+    role: 'Founder & Director',
+    bio: 'Leads the heart and direction of ECHO, keeping every trip Christ-centered, relational, and rooted in genuine service.',
   },
   {
     img: teamImg3,
-    name: 'Team Care & Logistics',
-    role: 'Preparation & Support',
-    bio: 'Guides participants through preparation and cares for every detail so teams can focus on serving.',
+    name: 'Stennet Kurts',
+    role: 'Logistics & Operations',
+    bio: 'Coordinates travel, preparation, and the day-to-day details so every team can focus on serving well.',
   },
 ];
 
@@ -315,7 +309,7 @@ export default function About() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-4xl mx-auto">
             {TEAM.map((member, i) => (
               <motion.div
                 key={member.name}
