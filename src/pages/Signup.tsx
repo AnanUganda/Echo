@@ -284,16 +284,20 @@ export default function Signup() {
         <iframe name="zoho_iframe" id="zoho_iframe" style={{ display: 'none' }}></iframe>
         <form 
           ref={formRef}
+          id="webform7506073000000612477"
+          name="WebToLeads7506073000000612477"
           action="https://crm.zoho.com/crm/WebToLeadForm" 
           method="POST" 
           target="zoho_iframe" 
           className="hidden"
+          acceptCharset="UTF-8"
         >
           <input type="hidden" name="xnQsjsdp" value="94d2aaaf008055fa774fe068b7d0b34570aedbeb6c00933c6b58f692466ff7e4" />
           <input type="hidden" name="zc_gad" value="" />
           <input type="hidden" name="xmIwtLD" value="f6dd369d03db9fafd137d28785b4c29adfe0ab0eacc537b38f410dba38ef8c4c1776208b4b7402e94ba9f20d830e5eaa" />
           <input type="hidden" name="actionType" value="TGVhZHM=" />
           <input type="hidden" name="returnURL" value="https://openbrands.studio" />
+          <input type="hidden" name="aG9uZXlwb3Q" value="" />
           
           <input type="hidden" name="Company" value={selectedTrip === 'undecided' ? 'Undecided' : TRIPS.find(t => t.id === selectedTrip)?.name || selectedTrip} />
           <input type="hidden" name="First Name" value={firstName} />
