@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, Send } from 'lucide-react';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
@@ -49,8 +49,8 @@ export default function Contact() {
                 <Mail className="w-6 h-6 text-secondary shrink-0 mt-1" />
                 <div>
                   <p className="text-sm text-text-secondary uppercase tracking-widest font-bold mb-1">Email</p>
-                  <a href="mailto:hello@echotripskenya.org" className="text-lg text-text-primary hover:text-text-primary transition-colors">
-                    hello@echotripskenya.org
+                  <a href="mailto:projectechokenya@gmail.com" className="text-lg text-text-primary hover:text-accent transition-colors">
+                    projectechokenya@gmail.com
                   </a>
                 </div>
               </div>
@@ -59,19 +59,9 @@ export default function Contact() {
                 <Phone className="w-6 h-6 text-secondary shrink-0 mt-1" />
                 <div>
                   <p className="text-sm text-text-secondary uppercase tracking-widest font-bold mb-1">Phone</p>
-                  <p className="text-lg text-text-primary">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-secondary shrink-0 mt-1" />
-                <div>
-                  <p className="text-sm text-text-secondary uppercase tracking-widest font-bold mb-1">Office</p>
-                  <p className="text-lg text-text-primary leading-relaxed">
-                    123 Ministry Lane<br />
-                    Suite 400<br />
-                    Nashville, TN 37203
-                  </p>
+                  <a href="tel:+14786624515" className="text-lg text-text-primary hover:text-accent transition-colors">
+                    +1 (478) 662-4515
+                  </a>
                 </div>
               </div>
             </div>
