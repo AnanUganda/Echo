@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { ArrowRight, Calendar, CheckCircle2, ShieldCheck, CreditCard } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { ArrowRight, Calendar, CheckCircle2 } from 'lucide-react';
+import { useState, useRef } from 'react';
 import type { FormEvent } from 'react';
 
 const TRIPS = [
@@ -9,10 +9,8 @@ const TRIPS = [
 
 export default function Signup() {
   const [step, setStep] = useState(1);
-  const [selectedTrip, setSelectedTrip] = useState('april-2027');
-  const [isPaid, setIsPaid] = useState(false);
-  const [paymentId, setPaymentId] = useState<string | null>(null);
-
+  const [selectedTrip, setSelectedTrip] = useState('');
+  
   // Form State
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -22,7 +20,7 @@ export default function Signup() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
-
+  
   const [church, setChurch] = useState('');
   const [reason, setReason] = useState('');
   const [experience, setExperience] = useState('');
@@ -31,21 +29,8 @@ export default function Signup() {
   const [whatsapp, setWhatsapp] = useState('');
   const [parentsName, setParentsName] = useState('');
   const [photoName, setPhotoName] = useState('');
-
+  
   const formRef = useRef<HTMLFormElement>(null);
-
-  // Check URL parameters for successful Stripe payment return
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const status = params.get('status');
-    const pid = params.get('payment_id') || params.get('session_id');
-
-    if (status === 'success' || pid) {
-      setIsPaid(true);
-      if (pid) setPaymentId(pid);
-      setStep(2); // Auto-advance to the application form
-    }
-  }, []);
 
   const handleNext = (e: FormEvent) => {
     e.preventDefault();
@@ -63,13 +48,13 @@ export default function Signup() {
   return (
     <div className="bg-background min-h-screen pt-24 pb-24">
       <div className="max-w-4xl mx-auto px-6 md:px-12 mt-12">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-serif text-text-primary mb-4"
+            className="text-4xl md:text-5xl font-serif text-text-primary mb-6"
           >
-            {step === 1 ? 'Reserve Your Spot' : 'Complete Your Application'}
+            Start Your Journey
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -77,9 +62,7 @@ export default function Signup() {
             transition={{ delay: 0.1 }}
             className="text-lg text-text-secondary max-w-2xl mx-auto"
           >
-            {step === 1 
-              ? 'Secure your place on the April 2027 Kenya Mission Trip by paying the $50 deposit.' 
-              : 'Your deposit is confirmed! Fill out your application below so our leadership team can review your information.'}
+            Take the first step toward a transformative experience in Kenya. Fill out this interest form, and our team will guide you through the preparation process.
           </motion.p>
         </div>
 
@@ -89,24 +72,7 @@ export default function Signup() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-surface rounded-3xl shadow-lg border border-earth-500/10 overflow-hidden"
         >
-          {/* Payment Status Verified Banner */}
-          {isPaid && step < 4 && (
-            <div className="bg-green-500/10 border-b border-green-500/20 px-8 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-green-600 shrink-0" />
-                <span className="text-sm font-semibold text-green-800">
-                  Payment Status: Deposit Paid ✓
-                </span>
-              </div>
-              {paymentId && (
-                <span className="text-xs text-green-700 font-mono bg-green-500/10 px-2.5 py-1 rounded-full">
-                  Ref: {paymentId}
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Step Indicator */}
+          {/* Progress Bar */}
           {step < 4 && (
             <div className="bg-background flex items-center justify-between px-10 py-6 border-b border-earth-500/10">
               {[1, 2, 3].map((num) => (
@@ -119,12 +85,12 @@ export default function Signup() {
                   <span className={`ml-3 text-sm font-medium hidden md:block ${
                     step >= num ? 'text-text-primary' : 'text-text-secondary'
                   }`}>
-                    {num === 1 && '1. Deposit Payment'}
-                    {num === 2 && '2. Personal Info'}
-                    {num === 3 && '3. Faith & Background'}
+                    {num === 1 && 'Select Trip'}
+                    {num === 2 && 'Personal Info'}
+                    {num === 3 && 'Background'}
                   </span>
                   {num < 3 && (
-                    <div className={`w-12 md:w-20 h-px mx-4 ${
+                    <div className={`w-12 md:w-24 h-px mx-4 ${
                       step > num ? 'bg-text-primary' : 'bg-earth-500/20'
                     }`} />
                   )}
@@ -135,68 +101,82 @@ export default function Signup() {
 
           {/* Form Content */}
           <div className="p-10 md:p-16">
-            {/* STEP 1: DEPOSIT PAYMENT (FIRST STEP IN FUNNEL) */}
             {step === 1 && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
-                <div className="bg-background p-6 rounded-2xl border border-earth-500/15">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h3 className="font-serif text-2xl text-text-primary">{TRIPS[0].name}</h3>
-                      <div className="flex items-center gap-2 text-text-secondary text-sm mt-1">
-                        <Calendar className="w-4 h-4 text-terracotta" />
-                        {TRIPS[0].date}
+              <form onSubmit={handleNext} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <h2 className="text-2xl font-serif text-text-primary mb-8">Which trip are you interested in?</h2>
+                <div className="space-y-4 mb-10">
+                  {TRIPS.map((trip) => (
+                    <label 
+                      key={trip.id}
+                      className={`block cursor-pointer p-6 rounded-2xl border-2 transition-all ${
+                        selectedTrip === trip.id 
+                          ? 'border-terracotta bg-text-primary/5' 
+                          : 'border-earth-500/20 hover:border-terracotta/50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <input 
+                            type="radio" 
+                            name="trip" 
+                            value={trip.id}
+                            checked={selectedTrip === trip.id}
+                            onChange={(e) => setSelectedTrip(e.target.value)}
+                            className="w-5 h-5 text-text-primary focus:ring-terracotta accent-terracotta"
+                            required
+                          />
+                          <div>
+                            <h3 className="font-medium text-text-primary text-lg">{trip.name}</h3>
+                            <div className="flex items-center gap-2 text-text-secondary text-sm mt-1">
+                              <Calendar className="w-4 h-4" />
+                              {trip.date}
+                            </div>
+                          </div>
+                        </div>
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase ${
+                          trip.status === 'Open' ? 'bg-green-100 text-green-700' : 'bg-ochre/20 text-text-primary'
+                        }`}>
+                          {trip.status}
+                        </span>
+                      </div>
+                    </label>
+                  ))}
+                  <label 
+                    className={`block cursor-pointer p-6 rounded-2xl border-2 transition-all ${
+                      selectedTrip === 'undecided' 
+                        ? 'border-terracotta bg-text-primary/5' 
+                        : 'border-earth-500/20 hover:border-terracotta/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <input 
+                        type="radio" 
+                        name="trip" 
+                        value="undecided"
+                        checked={selectedTrip === 'undecided'}
+                        onChange={(e) => setSelectedTrip(e.target.value)}
+                        className="w-5 h-5 text-text-primary focus:ring-terracotta accent-terracotta"
+                      />
+                      <div>
+                        <h3 className="font-medium text-text-primary text-lg">I'm not sure yet</h3>
+                        <p className="text-text-secondary text-sm mt-1">I'd like to talk with someone to find the best fit.</p>
                       </div>
                     </div>
-                    <span className="px-3.5 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-green-100 text-green-700">
-                      {TRIPS[0].status}
-                    </span>
-                  </div>
-                  <p className="text-sm text-text-secondary leading-relaxed border-t border-earth-500/10 pt-4">
-                    Join us for 10 days of community outreach, village ministry, local church fellowship, and a safari experience in Kenya.
-                  </p>
+                  </label>
                 </div>
-
-                {/* Financial Summary Box */}
-                <div className="bg-terracotta/5 border border-terracotta/15 p-6 rounded-2xl space-y-3">
-                  <h4 className="font-serif text-lg text-text-primary flex items-center gap-2">
-                    <CreditCard className="w-5 h-5 text-terracotta" />
-                    Deposit Requirement
-                  </h4>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    A <strong>$50 deposit</strong> is required today to reserve your spot on the team. Your payment unlocks the official application form immediately.
-                  </p>
-                  <ul className="text-xs text-text-secondary space-y-1.5 pt-2 border-t border-terracotta/10">
-                    <li>• Total Trip Contribution: <strong>$1,500</strong></li>
-                    <li>• Deposit Due Today: <strong>$50</strong></li>
-                    <li>• Remaining Balance ($1,450): Due 3 months prior to departure</li>
-                  </ul>
-                </div>
-
-                {/* Stripe Action Button */}
-                <div className="flex flex-col items-center gap-4 pt-4">
-                  <a
-                    href="https://buy.stripe.com/test_depositlink" // REPLACE WITH ACTUAL STRIPE LINK
-                    className="w-full py-5 bg-terracotta text-white rounded-xl font-medium text-lg hover:bg-ochre transition-all flex items-center justify-center gap-3 shadow-lg shadow-terracotta/20"
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    disabled={!selectedTrip}
+                    className="flex items-center gap-2 px-8 py-4 bg-text-primary text-primary rounded-xl font-medium hover:bg-surface hover:text-text-primary transition-all disabled:opacity-50"
                   >
-                    Pay $50 Deposit & Continue Application
+                    Continue
                     <ArrowRight className="w-5 h-5" />
-                  </a>
-
-                  {/* Testing / Manual Bypass Link */}
-                  <button 
-                    onClick={() => {
-                      setIsPaid(true);
-                      setStep(2);
-                    }}
-                    className="text-xs text-text-secondary hover:text-text-primary underline pt-2"
-                  >
-                    Already paid your deposit? Click here to complete application
                   </button>
                 </div>
-              </div>
+              </form>
             )}
 
-            {/* STEP 2: PERSONAL INFORMATION */}
             {step === 2 && (
               <form onSubmit={handleNext} className="animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col gap-6">
                 <h2 className="text-2xl font-serif text-text-primary mb-2">Tell us about yourself</h2>
@@ -264,16 +244,18 @@ export default function Signup() {
                   </div>
                 </div>
 
-                <div className="flex justify-end mt-6">
+                <div className="flex justify-between mt-6">
+                  <button type="button" onClick={() => setStep(1)} className="px-8 py-4 text-text-secondary hover:text-text-primary font-medium transition-colors">
+                    Back
+                  </button>
                   <button type="submit" className="flex items-center gap-2 px-8 py-4 bg-text-primary text-primary rounded-xl font-medium hover:bg-surface hover:text-text-primary transition-all">
-                    Continue to Background
+                    Continue
                     <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
               </form>
             )}
 
-            {/* STEP 3: FAITH & BACKGROUND */}
             {step === 3 && (
               <form onSubmit={submitForm} className="animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col gap-6">
                 <h2 className="text-2xl font-serif text-text-primary mb-2">Faith & Background</h2>
@@ -293,6 +275,18 @@ export default function Signup() {
                   <textarea rows={3} required value={experience} onChange={(e) => setExperience(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none resize-none"></textarea>
                 </div>
 
+                <div className="flex items-start gap-3 mt-4 bg-background p-4 rounded-xl border border-earth-500/20">
+                  <input 
+                    type="checkbox" 
+                    id="deposit"
+                    required
+                    className="mt-1 w-5 h-5 text-terracotta focus:ring-terracotta rounded border-earth-500/30 accent-terracotta cursor-pointer shrink-0"
+                  />
+                  <label htmlFor="deposit" className="text-sm text-text-secondary leading-relaxed cursor-pointer">
+                    I understand that my application will only be processed upon receipt of a <strong>$50 deposit</strong>. This deposit is refundable if I am unable to attend and cancel the trip, but becomes non-refundable once I officially commit to the team.
+                  </label>
+                </div>
+
                 <div className="flex justify-between mt-6">
                   <button type="button" onClick={() => setStep(2)} className="px-8 py-4 text-text-secondary hover:text-text-primary font-medium transition-colors">
                     Back
@@ -305,19 +299,29 @@ export default function Signup() {
               </form>
             )}
 
-            {/* STEP 4: APPLICATION COMPLETED & CONFIRMED */}
             {step === 4 && (
               <div className="text-center py-12 animate-in zoom-in-95 duration-500">
                 <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
                   <CheckCircle2 className="w-12 h-12 text-green-600" />
                 </div>
-                <h2 className="text-4xl font-serif text-text-primary mb-4">Application Submitted!</h2>
-                <p className="text-text-secondary text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-                  Thank you for taking this step of faith! Your $50 deposit and application details have been recorded. <strong className="text-text-primary block mt-2">Our team is reviewing your information and will contact you within 48 hours.</strong>
+                <h2 className="text-4xl font-serif text-text-primary mb-4">Application Received!</h2>
+                <p className="text-text-secondary text-lg mb-8 max-w-xl mx-auto">
+                  Thank you for taking this step of faith. We have received your information securely. To complete your application process, please submit your $50 deposit now.
                 </p>
-                <button onClick={() => window.location.href = '/'} className="px-8 py-4 bg-text-primary text-primary rounded-xl font-medium hover:bg-surface transition-all">
-                  Return to Home
-                </button>
+                <div className="flex flex-col gap-4 items-center justify-center">
+                  <a 
+                    href="https://buy.stripe.com/test_depositlink" // REPLACE WITH ACTUAL STRIPE LINK
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-10 py-5 bg-terracotta text-white rounded-xl font-medium hover:bg-ochre transition-all shadow-lg shadow-terracotta/20 text-lg"
+                  >
+                    Pay $50 Deposit Now
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                  <button onClick={() => window.location.href = '/'} className="text-text-secondary font-medium hover:text-text-primary transition-colors mt-6">
+                    Return to Home
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -351,8 +355,8 @@ export default function Signup() {
           <input type="hidden" name="Address - City" value={city} />
           <input type="hidden" name="Address - Zip / Postal Code" value={zip} />
           <input type="hidden" name="Address - Street Address" value={address} />
-          {/* Combine payment ID, dob, whatsapp, church, etc. into Description */}
-          <input type="hidden" name="Description" value={`[DEPOSIT PAID VIA STRIPE]\nStripe Reference ID: ${paymentId || 'Verified Deposit'}\nDate of Birth: ${dob}\nWhatsApp: ${whatsapp}\nParents' Name: ${parentsName}\nPhoto File Attached: ${photoName}\nState: ${state}\nChurch: ${church}\nReason: ${reason}\nExperience: ${experience}`} />
+          {/* Combine church, state, and reasons into the Description field since it's the only large text field mapped */}
+          <input type="hidden" name="Description" value={`Date of Birth: ${dob}\nWhatsApp: ${whatsapp}\nParents' Name: ${parentsName}\nPhoto File Attached: ${photoName}\nState: ${state}\nChurch: ${church}\nReason: ${reason}\nExperience: ${experience}`} />
         </form>
         
       </div>
