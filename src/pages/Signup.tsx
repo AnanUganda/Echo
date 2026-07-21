@@ -298,12 +298,12 @@ export default function Signup() {
                   <CheckCircle2 className="w-12 h-12 text-green-600" />
                 </div>
                 <h2 className="text-4xl font-serif text-text-primary mb-4">Application Received!</h2>
-                <p className="text-text-secondary text-lg mb-8 max-w-xl mx-auto">
-                  Thank you for taking this step of faith. We have received your information securely. To complete your application process, please submit your $50 deposit now.
+                <p className="text-text-secondary text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+                  Thank you for taking this step of faith! We have received your information securely. <strong className="text-text-primary block mt-2 font-medium">Please note: Your application is only officially processed and confirmed once your $50 deposit is received.</strong>
                 </p>
                 <div className="flex flex-col gap-4 items-center justify-center">
                   <a 
-                    href="https://buy.stripe.com/test_depositlink" // REPLACE WITH ACTUAL STRIPE LINK
+                    href="https://buy.stripe.com/eVqcN56xp1oh1Ao6QRbfO06"
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-2 px-10 py-5 bg-terracotta text-white rounded-xl font-medium hover:bg-ochre transition-all shadow-lg shadow-terracotta/20 text-lg"
