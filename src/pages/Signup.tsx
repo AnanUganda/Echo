@@ -220,9 +220,8 @@ export default function Signup() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-medium text-text-primary">Photo (For ID / Roster)</label>
+                  <label className="text-sm font-medium text-text-primary">A photo of yourself</label>
                   <input type="file" accept="image/*" required onChange={(e) => setPhotoName(e.target.files?.[0]?.name || '')} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-terracotta/10 file:text-terracotta hover:file:bg-terracotta/20" />
-                  <p className="text-xs text-text-secondary mt-1">Please upload a clear, forward-facing photo.</p>
                 </div>
 
                 <div className="flex flex-col gap-2">
