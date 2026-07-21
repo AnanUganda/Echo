@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import itineraryHero from '../assets/images/hero2.jpg';
+import itineraryHero from '../assets/images/Echo.jpg';
 
 export default function Itinerary() {
   const days = [
@@ -120,7 +120,6 @@ export default function Itinerary() {
           transition={{ duration: 0.6 }}
         >
           <div className="border-b border-earth-500/20 pb-6 mb-12 text-center md:text-left">
-            <span className="text-xs font-semibold tracking-[0.2em] text-terracotta uppercase block mb-1">Financial Guidance</span>
             <h2 className="text-3xl font-serif text-text-primary">Expected Cost</h2>
           </div>
 
