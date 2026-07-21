@@ -24,6 +24,11 @@ export default function Signup() {
   const [church, setChurch] = useState('');
   const [reason, setReason] = useState('');
   const [experience, setExperience] = useState('');
+
+  const [dob, setDob] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [parentsName, setParentsName] = useState('');
+  const [photoName, setPhotoName] = useState('');
   
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -193,9 +198,31 @@ export default function Signup() {
                     <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium text-text-primary">Phone</label>
+                    <label className="text-sm font-medium text-text-primary">Phone Number</label>
                     <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
                   </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium text-text-primary">WhatsApp Number</label>
+                    <input type="tel" required value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium text-text-primary">Date of Birth</label>
+                    <input type="date" required value={dob} onChange={(e) => setDob(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-text-primary">Parents' Names (If applicable / Emergency Contact)</label>
+                  <input type="text" required value={parentsName} onChange={(e) => setParentsName(e.target.value)} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none" />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-text-primary">Photo (For ID / Roster)</label>
+                  <input type="file" accept="image/*" required onChange={(e) => setPhotoName(e.target.files?.[0]?.name || '')} className="px-4 py-3 bg-background border border-earth-500/20 rounded-lg focus:ring-2 focus:ring-terracotta/50 focus:border-terracotta outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-terracotta/10 file:text-terracotta hover:file:bg-terracotta/20" />
+                  <p className="text-xs text-text-secondary mt-1">Please upload a clear, forward-facing photo.</p>
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -278,13 +305,24 @@ export default function Signup() {
                 <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
                   <CheckCircle2 className="w-12 h-12 text-green-600" />
                 </div>
-                <h2 className="text-4xl font-serif text-text-primary mb-4">Application Received</h2>
-                <p className="text-text-secondary text-lg mb-8 max-w-lg mx-auto">
-                  Thank you for taking this step of faith. Our team is reviewing your application and will contact you via email within the next 48 hours with next steps.
+                <h2 className="text-4xl font-serif text-text-primary mb-4">Application Received!</h2>
+                <p className="text-text-secondary text-lg mb-8 max-w-xl mx-auto">
+                  Thank you for taking this step of faith. We have received your information securely. To complete your application process, please submit your $50 deposit now.
                 </p>
-                <button onClick={() => window.location.href = '/'} className="text-text-primary font-medium hover:text-text-primary transition-colors">
-                  Return to Home
-                </button>
+                <div className="flex flex-col gap-4 items-center justify-center">
+                  <a 
+                    href="https://buy.stripe.com/test_depositlink" // REPLACE WITH ACTUAL STRIPE LINK
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-10 py-5 bg-terracotta text-white rounded-xl font-medium hover:bg-ochre transition-all shadow-lg shadow-terracotta/20 text-lg"
+                  >
+                    Pay $50 Deposit Now
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                  <button onClick={() => window.location.href = '/'} className="text-text-secondary font-medium hover:text-text-primary transition-colors mt-6">
+                    Return to Home
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -319,7 +357,7 @@ export default function Signup() {
           <input type="hidden" name="Address - Zip / Postal Code" value={zip} />
           <input type="hidden" name="Address - Street Address" value={address} />
           {/* Combine church, state, and reasons into the Description field since it's the only large text field mapped */}
-          <input type="hidden" name="Description" value={`State: ${state}\nChurch: ${church}\nReason: ${reason}\nExperience: ${experience}`} />
+          <input type="hidden" name="Description" value={`Date of Birth: ${dob}\nWhatsApp: ${whatsapp}\nParents' Name: ${parentsName}\nPhoto File Attached: ${photoName}\nState: ${state}\nChurch: ${church}\nReason: ${reason}\nExperience: ${experience}`} />
         </form>
         
       </div>
