@@ -13,9 +13,9 @@ import introImg from '../assets/images/josh.jpg';
 import culturalImg from '../assets/images/drumming.jpg';
 import villageImg from '../assets/images/giving.JPG';
 import schoolImg from '../assets/images/food serving.jpg';
-import kidsImg from '../assets/images/facepainting.jpg';
+import kidsImg from '../assets/images/Kids Ministry.jpeg';
 import fellowshipImg from '../assets/images/shan.jpg';
-import safariImg from '../assets/images/Safari image.JPG';
+import safariImg from '../assets/images/maraexperience.jpeg';
 // Testimonials
 import testimonialImg1 from '../assets/images/alie.jpg';
 import testimonialImg2 from '../assets/images/IMG_9676.JPG';
