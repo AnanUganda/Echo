@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 
-import serveImg from '../assets/images/elay.jpg';
+import serveImg from '../assets/images/See Kenya.webp';
 
 interface Value {
   title: string;

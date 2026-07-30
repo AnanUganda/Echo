@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import itineraryHero from '../assets/images/Echo.jpg';
+import itineraryHero from '../assets/images/Echo.webp';
 
 export default function Itinerary() {
   const days = [

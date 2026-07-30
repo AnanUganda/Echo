@@ -7,21 +7,21 @@ import useEmblaCarousel from 'embla-carousel-react';
 import WhyEcho from '../components/WhyEcho';
 import GalleryStrip from '../components/GalleryStrip';
 
-import heroImg from '../assets/images/hero2.jpg';
-import introImg from '../assets/images/josh.jpg';
+import heroImg from '../assets/images/hero2.webp';
+import introImg from '../assets/images/josh.webp';
 // Bento — "What You'll Experience"
-import culturalImg from '../assets/images/drumming.jpg';
-import villageImg from '../assets/images/giving.JPG';
-import schoolImg from '../assets/images/food serving.jpg';
-import kidsImg from '../assets/images/Kids Ministry.jpeg';
-import fellowshipImg from '../assets/images/shan.jpg';
-import safariImg from '../assets/images/maraexperience.jpeg';
+import culturalImg from '../assets/images/drumming.webp';
+import villageImg from '../assets/images/giving.webp';
+import schoolImg from '../assets/images/food serving.webp';
+import kidsImg from '../assets/images/Kids Ministry.webp';
+import fellowshipImg from '../assets/images/shan.webp';
+import safariImg from '../assets/images/maraexperience.webp';
 // Testimonials
-import testimonialImg1 from '../assets/images/alie.jpg';
-import testimonialImg2 from '../assets/images/IMG_9676.JPG';
-import testimonialImg3 from '../assets/images/Burke.jpg';
+import testimonialImg1 from '../assets/images/alie.webp';
+import testimonialImg2 from '../assets/images/IMG_9676.webp';
+import testimonialImg3 from '../assets/images/Burke.webp';
 // CTA
-import ctaImg from '../assets/images/convoy.jpg';
+import ctaImg from '../assets/images/convoy.webp';
 
 export default function Home() {
 const TESTIMONIALS = [

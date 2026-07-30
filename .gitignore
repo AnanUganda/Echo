@@ -30,3 +30,7 @@ node_modules/.vite/
 
 # Root Vite cache
 .vite/
+
+# Python virtualenv and unused image backups
+.venv/
+src/assets/images_unused/

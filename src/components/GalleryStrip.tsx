@@ -2,17 +2,27 @@ import { useRef, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-import equatorImg from '../assets/images/Equator.jpg';
-import groupSelfieImg from '../assets/images/brian 2.jpg';
-import brianImg from '../assets/images/Brian.jpg';
-import marjImg from '../assets/images/marj.jpg';
-import giraffeImg from '../assets/images/IMG_0661.jpg';
-import cheetahImg from '../assets/images/Cheetah.jpg';
-import marketImg from '../assets/images/IMG_4592.JPG';
-import schoolboysImg from '../assets/images/IMG_9618.JPG';
-import biscuitsImg from '../assets/images/IMG_9626.JPG';
-import walkingImg from '../assets/images/IMG_9455.JPG';
-import monumentImg from '../assets/images/Peace monument.JPG';
+import equatorImg from '../assets/images/Equator.webp';
+import groupSelfieImg from '../assets/images/brian 2.webp';
+import brianImg from '../assets/images/Brian.webp';
+import marjImg from '../assets/images/marj.webp';
+import giraffeImg from '../assets/images/IMG_0661.webp';
+import cheetahImg from '../assets/images/Cheetah.webp';
+import marketImg from '../assets/images/IMG_4592.webp';
+import schoolboysImg from '../assets/images/IMG_9618.webp';
+import biscuitsImg from '../assets/images/IMG_9626.webp';
+import walkingImg from '../assets/images/IMG_9455.webp';
+import monumentImg from '../assets/images/Peace monument.webp';
+
+// New images
+import momentImg from '../assets/images/Moment.webp';
+import trip2Img from '../assets/images/Trip 2.webp';
+import trip01Img from '../assets/images/Trip-07-21 at 17.43.55 (1).webp';
+import trip02Img from '../assets/images/Trip-07-21 at 17.43.55 (2).webp';
+import trip03Img from '../assets/images/Trip-07-21 at 17.43.55 (3).webp';
+import trip04Img from '../assets/images/Trip-07-21 at 17.43.55 (4).webp';
+import trip05Img from '../assets/images/Trip-07-21 at 17.43.55.webp';
+import tripImg from '../assets/images/trip.webp';
 
 interface Photo {
   src: string;
@@ -34,6 +44,14 @@ const PHOTOS: Photo[] = [
   { src: walkingImg, alt: 'Walking alongside local friends', caption: 'Side by side', orientation: 'portrait' },
   { src: monumentImg, alt: 'Learning the story behind a community peace monument', caption: 'Learning the story', orientation: 'portrait' },
   { src: groupSelfieImg, alt: 'A joyful group photo with the whole team and local friends', caption: 'The whole team', orientation: 'portrait' },
+  { src: momentImg, alt: 'A special moment during our mission journey', caption: 'Cherished moments', orientation: 'portrait' },
+  { src: trip2Img, alt: 'On the road in Kenya', caption: 'On the road', orientation: 'portrait' },
+  { src: trip01Img, alt: 'Scenic vistas of the Kenyan countryside', caption: 'Scenic vistas', orientation: 'landscape' },
+  { src: trip02Img, alt: 'Joyful fellowship with community members', caption: 'Fellowship', orientation: 'portrait' },
+  { src: trip03Img, alt: 'Reaching out and serving the local community', caption: 'Community outreach', orientation: 'portrait' },
+  { src: trip04Img, alt: 'Smiles and laughter all around', caption: 'Smiles all around', orientation: 'portrait' },
+  { src: trip05Img, alt: 'The deep joy of hands-on service', caption: 'Joy of service', orientation: 'portrait' },
+  { src: tripImg, alt: 'The team standing together in unity', caption: 'Team unity', orientation: 'portrait' },
 ];
 
 export default function GalleryStrip() {
@@ -47,17 +65,33 @@ export default function GalleryStrip() {
     
     if (!track || prefersReducedMotion) return;
 
+    // Loop bounds handler to provide infinite scrolling seamlessly in both directions
+    const handleScroll = () => {
+      const halfWidth = track.scrollWidth / 2;
+      if (halfWidth <= 0) return;
+
+      if (track.scrollLeft >= halfWidth) {
+        track.scrollLeft = track.scrollLeft - halfWidth + 10;
+      } else if (track.scrollLeft <= 0) {
+        track.scrollLeft = halfWidth - 10;
+      }
+    };
+
+    track.addEventListener('scroll', handleScroll);
+
     const scroll = () => {
       if (!isInteracting.current) {
-        track.scrollLeft += 0.5; // Adjust speed as needed
-        // If it reaches the end, maybe we could loop it, but for a simple gallery, it just stops at the end until scrolled back.
+        track.scrollLeft += 0.4; // Slow, elegant automatic scrolling
       }
       animationId = requestAnimationFrame(scroll);
     };
 
     animationId = requestAnimationFrame(scroll);
     
-    return () => cancelAnimationFrame(animationId);
+    return () => {
+      cancelAnimationFrame(animationId);
+      track.removeEventListener('scroll', handleScroll);
+    };
   }, [prefersReducedMotion]);
 
   const scrollByCards = (direction: 1 | -1) => {
@@ -123,12 +157,12 @@ export default function GalleryStrip() {
         onTouchEnd={() => (isInteracting.current = false)}
         onPointerDown={() => (isInteracting.current = true)}
         onPointerUp={() => (isInteracting.current = false)}
-        className="flex gap-4 md:gap-6 overflow-x-auto snap-x overscroll-x-contain px-6 md:px-12 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 md:gap-6 overflow-x-auto overscroll-x-contain px-6 md:px-12 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {PHOTOS.map((photo) => (
+        {[...PHOTOS, ...PHOTOS].map((photo, index) => (
           <figure
-            key={photo.src}
-            className="group relative snap-start shrink-0 h-[58vh] min-h-[380px] max-h-[720px] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer"
+            key={`${photo.src}-${index}`}
+            className="group relative shrink-0 h-[58vh] min-h-[380px] max-h-[720px] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer"
           >
             <img
               src={photo.src}
@@ -148,8 +182,6 @@ export default function GalleryStrip() {
             </figcaption>
           </figure>
         ))}
-        {/* Trailing spacer so the last card can rest flush against the edge padding */}
-        <div className="shrink-0 w-2 md:w-6" aria-hidden="true" />
       </div>
     </section>
   );

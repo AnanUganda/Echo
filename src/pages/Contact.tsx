@@ -3,6 +3,7 @@ import { Mail, Phone, Send } from 'lucide-react';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
+// Contact Page Component for ECHO Trips
 export default function Contact() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 

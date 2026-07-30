@@ -1,15 +1,15 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 
-import brianImg from '../assets/images/Brian.jpg';
-import equatorImg from '../assets/images/Equator.jpg';
-import safariImg from '../assets/images/Safari image.JPG';
-import giraffeImg from '../assets/images/IMG_0661.jpg';
-import marketImg from '../assets/images/IMG_4592.JPG';
-import walkingImg from '../assets/images/IMG_9455.JPG';
-import joshImg from '../assets/images/josh.jpg';
-import marjImg from '../assets/images/marj.jpg';
-import drummingImg from '../assets/images/drumming.jpg';
+import brianImg from '../assets/images/Brian.webp';
+import equatorImg from '../assets/images/Equator.webp';
+import safariImg from '../assets/images/Safari image.webp';
+import giraffeImg from '../assets/images/IMG_0661.webp';
+import marketImg from '../assets/images/IMG_4592.webp';
+import walkingImg from '../assets/images/IMG_9455.webp';
+import joshImg from '../assets/images/josh.webp';
+import marjImg from '../assets/images/marj.webp';
+import drummingImg from '../assets/images/drumming.webp';
 
 interface Photo {
   src: string;

@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Handshake, HeartHandshake, Users } from 'lucide-react';
 
 // Hero collage tiles
-import tileGroupImg from '../assets/images/brian 2.jpg';
-import tileFaceImg from '../assets/images/facepainting.jpg';
-import tileSchoolImg from '../assets/images/IMG_9618.JPG';
-import tileGivingImg from '../assets/images/giving.JPG';
-import tileSafariImg from '../assets/images/Safari image.JPG';
-import tileDrumImg from '../assets/images/drumming.jpg';
+import tileGroupImg from '../assets/images/brian 2.webp';
+import tileFaceImg from '../assets/images/facepainting.webp';
+import tileSchoolImg from '../assets/images/IMG_9618.webp';
+import tileGivingImg from '../assets/images/giving.webp';
+import tileSafariImg from '../assets/images/Safari image.webp';
+import tileDrumImg from '../assets/images/drumming.webp';
 // Our Story
-import storyImg from '../assets/images/Brian.jpg';
+import storyImg from '../assets/images/Story.webp';
 // Meet the Team
-import teamImg1 from '../assets/images/sterling1.jpg';
-import teamImg2 from '../assets/images/sterling.jpg';
-import teamImg3 from '../assets/images/stennet.jpg';
+import teamImg1 from '../assets/images/sterling1.webp';
+import teamImg2 from '../assets/images/sterling.webp';
+import teamImg3 from '../assets/images/stennet.webp';
 
 /* ---------------- Hero floating collage ---------------- */
 
