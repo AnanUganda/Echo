@@ -1,7 +1,9 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+
+import echoLogo from '../assets/images/echo-logo.png';
 
 export default function Layout() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,6 +28,9 @@ export default function Layout() {
 
   // Only the homepage has a full-bleed hero behind the header.
   const hasBackground = location.pathname === '/' ? isScrolled : true;
+  // Dark logo/icons when over a light surface (solid bar or open mobile menu);
+  // white (inverted) logo/icons when transparent over the hero photo.
+  const darkContent = hasBackground || mobileMenuOpen;
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -46,18 +51,12 @@ export default function Layout() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group justify-self-start">
-            <Heart
-              className={`w-6 h-6 transition-colors ${hasBackground ? 'text-clay' : 'text-white'}`}
-              fill="currentColor"
+          <Link to="/" className="justify-self-start inline-flex items-center" aria-label="ECHO Trips home">
+            <img
+              src={echoLogo}
+              alt="ECHO Trips"
+              className={`h-8 md:h-9 w-auto transition ${darkContent ? '' : 'brightness-0 invert'}`}
             />
-            <span
-              className={`text-xl font-serif font-medium tracking-tight ${
-                hasBackground ? 'text-ink' : 'text-white'
-              }`}
-            >
-              ECHO Trips
-            </span>
           </Link>
 
           {/* Desktop Nav (centered) */}
@@ -92,9 +91,9 @@ export default function Layout() {
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X className={`w-6 h-6 ${hasBackground ? 'text-ink' : 'text-white'}`} />
+              <X className={`w-6 h-6 ${darkContent ? 'text-ink' : 'text-white'}`} />
             ) : (
-              <Menu className={`w-6 h-6 ${hasBackground ? 'text-ink' : 'text-white'}`} />
+              <Menu className={`w-6 h-6 ${darkContent ? 'text-ink' : 'text-white'}`} />
             )}
           </button>
         </div>
@@ -141,9 +140,8 @@ export default function Layout() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
             {/* Tagline column */}
             <div className="col-span-2 md:col-span-1">
-              <Link to="/" className="flex items-center gap-2 mb-5 group">
-                <Heart className="w-6 h-6 text-clay" fill="currentColor" />
-                <span className="text-xl font-serif font-medium tracking-tight text-white">ECHO Trips</span>
+              <Link to="/" className="inline-flex mb-6" aria-label="ECHO Trips home">
+                <img src={echoLogo} alt="ECHO Trips" className="h-10 w-auto brightness-0 invert" />
               </Link>
               {/* TODO(copy): founding year unknown — copy doc tagline ends "since [year]". */}
               <p className="text-white/70 text-[15px] leading-[1.6] max-w-xs">
