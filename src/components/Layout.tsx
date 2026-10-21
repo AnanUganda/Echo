@@ -141,7 +141,7 @@ export default function Layout() {
             {/* Tagline column */}
             <div className="col-span-2 md:col-span-1">
               <Link to="/" className="inline-flex mb-6" aria-label="ECHO Trips home">
-                <img src={echoLogo} alt="ECHO Trips" className="h-10 w-auto brightness-0 invert" />
+                <img src={echoLogo} alt="ECHO Trips" className="h-20 md:h-24 w-auto brightness-0 invert" />
               </Link>
               {/* TODO(copy): founding year unknown — copy doc tagline ends "since [year]". */}
               <p className="text-white/70 text-[15px] leading-[1.6] max-w-xs">
