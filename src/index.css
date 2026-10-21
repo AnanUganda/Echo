@@ -42,27 +42,30 @@
   --color-clay-legacy: #C9C1B1;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* Base element defaults live in @layer base so Tailwind utilities
+   (color, leading, weight) always override them. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-body);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    background-color: var(--color-background);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-/* Serif display headings — Lora 500, tight tracking. Utilities still win,
-   so per-element leading/size overrides keep working. */
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  color: var(--color-ink);
+  /* Serif display headings — Lora 500, tight tracking. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--color-ink);
+  }
 }

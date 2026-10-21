@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+import { Eyebrow } from './ui';
 
 import equatorImg from '../assets/images/Equator.webp';
 import groupSelfieImg from '../assets/images/brian 2.webp';
@@ -28,10 +30,12 @@ interface Photo {
   src: string;
   alt: string;
   caption: string;
-  /** Fixed height with variable width; landscape shots read wider, portraits narrower — subtle, natural variation. */
+  /** Fixed height with variable width; landscape shots read wider, portraits narrower. */
   orientation: 'portrait' | 'landscape';
 }
 
+// Captions kept as-is. The copy doc's suggested swaps need a [village]/[town]
+// placeholder, so per the brief those captions stay unchanged.
 const PHOTOS: Photo[] = [
   { src: equatorImg, alt: 'The ECHO team at the Kenya equator marker', caption: 'Crossing the equator', orientation: 'portrait' },
   { src: marketImg, alt: 'Visiting a local partner shop in the community', caption: 'Local partners', orientation: 'landscape' },
@@ -62,10 +66,10 @@ export default function GalleryStrip() {
   useEffect(() => {
     let animationId: number;
     const track = trackRef.current;
-    
+
     if (!track || prefersReducedMotion) return;
 
-    // Loop bounds handler to provide infinite scrolling seamlessly in both directions
+    // Loop bounds handler for seamless infinite scrolling in both directions.
     const handleScroll = () => {
       const halfWidth = track.scrollWidth / 2;
       if (halfWidth <= 0) return;
@@ -87,7 +91,7 @@ export default function GalleryStrip() {
     };
 
     animationId = requestAnimationFrame(scroll);
-    
+
     return () => {
       cancelAnimationFrame(animationId);
       track.removeEventListener('scroll', handleScroll);
@@ -97,7 +101,6 @@ export default function GalleryStrip() {
   const scrollByCards = (direction: 1 | -1) => {
     const track = trackRef.current;
     if (!track) return;
-    // Scroll by ~80% of the visible width so a little of the next card peeks in — feels intentional, not paginated.
     track.scrollBy({
       left: direction * track.clientWidth * 0.8,
       behavior: prefersReducedMotion ? 'auto' : 'smooth',
@@ -105,83 +108,73 @@ export default function GalleryStrip() {
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 md:py-20 bg-surface overflow-hidden">
-      {/* Header — matches the editorial eyebrow pattern used across the site */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="w-full px-6 md:px-12 mb-12 md:mb-16"
-      >
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-4 mb-4">
-              <span className="h-px w-10 bg-accent" aria-hidden="true" />
-              <span className="text-xs font-semibold tracking-[0.25em] text-accent uppercase">In the Field</span>
+    <section className="px-4 sm:px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-[1320px] bg-panel rounded-[32px] py-14 md:py-16 overflow-hidden">
+        {/* Header */}
+        <div className="px-6 md:px-12 mb-10 md:mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 max-w-2xl md:max-w-none">
+            <div className="max-w-2xl">
+              <Eyebrow className="mb-4">In the field</Eyebrow>
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-[44px] text-ink leading-[1.05] mb-4">
+                Photos from past trips
+              </h2>
+              <p className="text-body text-[17px] leading-[1.6]">
+                Long drives, shared meals, and new friends. Swipe through a few days on an ECHO trip.
+              </p>
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif text-text-primary mb-4">
-              Moments From <em className="italic text-accent">the Journey</em>
-            </h2>
-            <p className="text-text-secondary leading-relaxed text-lg">
-              Shared meals, open roads, and new friendships — swipe through a few glimpses of everyday life on an ECHO trip.
-            </p>
-          </div>
 
-          {/* Desktop scroll controls */}
-          <div className="hidden md:flex gap-3 shrink-0">
-            <button
-              onClick={() => scrollByCards(-1)}
-              aria-label="Scroll gallery left"
-              className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-text-primary hover:bg-text-primary hover:text-primary hover:border-text-primary transition-all"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scrollByCards(1)}
-              aria-label="Scroll gallery right"
-              className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-text-primary hover:bg-text-primary hover:text-primary hover:border-text-primary transition-all"
-            >
-              <ArrowRight className="w-5 h-5" />
-            </button>
+            {/* Desktop scroll controls */}
+            <div className="hidden md:flex gap-3 shrink-0">
+              <button
+                onClick={() => scrollByCards(-1)}
+                aria-label="Scroll gallery left"
+                className="w-12 h-12 rounded-full border border-line bg-white flex items-center justify-center text-ink hover:bg-forest hover:text-white hover:border-forest transition-all"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => scrollByCards(1)}
+                aria-label="Scroll gallery right"
+                className="w-12 h-12 rounded-full border border-line bg-white flex items-center justify-center text-ink hover:bg-forest hover:text-white hover:border-forest transition-all"
+              >
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
-      </motion.div>
 
-      {/* Horizontal scroll track — ~1/3 viewport tall, snap + touch friendly, hidden scrollbar */}
-      <div
-        ref={trackRef}
-        onMouseEnter={() => (isInteracting.current = true)}
-        onMouseLeave={() => (isInteracting.current = false)}
-        onTouchStart={() => (isInteracting.current = true)}
-        onTouchEnd={() => (isInteracting.current = false)}
-        onPointerDown={() => (isInteracting.current = true)}
-        onPointerUp={() => (isInteracting.current = false)}
-        className="flex gap-4 md:gap-6 overflow-x-auto overscroll-x-contain px-6 md:px-12 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {[...PHOTOS, ...PHOTOS].map((photo, index) => (
-          <figure
-            key={`${photo.src}-${index}`}
-            className="group relative shrink-0 h-[58vh] min-h-[380px] max-h-[720px] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 cursor-pointer"
-          >
-            <img
-              src={photo.src}
-              alt={photo.alt}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-              className={`h-full w-auto object-cover select-none transition-transform duration-[600ms] ease-out ${
-                prefersReducedMotion ? '' : 'group-hover:scale-[1.04]'
-              } ${photo.orientation === 'landscape' ? 'aspect-[3/2]' : 'aspect-[3/4]'}`}
-            />
-            {/* Caption + gradient reveal on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            <figcaption className="absolute bottom-0 left-0 p-5 md:p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
-              <span className="block w-8 h-0.5 bg-accent mb-3" aria-hidden="true" />
-              <span className="text-white font-serif text-lg md:text-xl">{photo.caption}</span>
-            </figcaption>
-          </figure>
-        ))}
+        {/* Horizontal scroll track — white rounded photo frames, hidden scrollbar */}
+        <div
+          ref={trackRef}
+          onMouseEnter={() => (isInteracting.current = true)}
+          onMouseLeave={() => (isInteracting.current = false)}
+          onTouchStart={() => (isInteracting.current = true)}
+          onTouchEnd={() => (isInteracting.current = false)}
+          onPointerDown={() => (isInteracting.current = true)}
+          onPointerUp={() => (isInteracting.current = false)}
+          className="flex gap-5 md:gap-6 overflow-x-auto overscroll-x-contain px-6 md:px-12 pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {[...PHOTOS, ...PHOTOS].map((photo, index) => (
+            <figure
+              key={`${photo.src}-${index}`}
+              className="shrink-0 bg-white rounded-2xl p-3 shadow-sm"
+            >
+              <div className="overflow-hidden rounded-xl h-[42vh] min-h-[280px] max-h-[520px]">
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className={`h-full w-auto object-cover select-none ${
+                    photo.orientation === 'landscape' ? 'aspect-[3/2]' : 'aspect-[3/4]'
+                  }`}
+                />
+              </div>
+              <figcaption className="px-1 pt-3 pb-1 font-serif text-base text-ink">{photo.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
   );
