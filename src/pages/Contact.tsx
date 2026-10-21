@@ -39,17 +39,17 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-forest text-white p-10 md:p-12 rounded-[28px]"
+            className="bg-forest text-white p-8 md:p-12 rounded-[28px]"
           >
             <h2 className="font-serif text-3xl text-white mb-10">Contact Information</h2>
 
             <div className="space-y-8">
               <div className="flex items-start gap-4">
                 <Mail className="w-6 h-6 text-peach shrink-0 mt-1" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-[13px] text-white/60 uppercase tracking-[0.06em] font-semibold mb-1">Email</p>
                   <a href="mailto:projectechokenya@gmail.com" className="text-lg text-white hover:text-peach transition-colors break-words">
                     projectechokenya@gmail.com
@@ -71,8 +71,8 @@ export default function Contact() {
 
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             {formStatus === 'success' ? (
