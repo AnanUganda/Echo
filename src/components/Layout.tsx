@@ -10,9 +10,10 @@ export default function Layout() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Background appears once scroll surpasses the main viewport height
-      setIsScrolled(window.scrollY > 1000);
+      // Solid bar appears as soon as the page leaves the top of the hero.
+      setIsScrolled(window.scrollY > 24);
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -23,7 +24,9 @@ export default function Layout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Only the homepage has a full-bleed hero behind the header.
   const hasBackground = location.pathname === '/' ? isScrolled : true;
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Our Story', path: '/about' },
@@ -32,54 +35,66 @@ export default function Layout() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-text-primary/30 selection:text-text-primary">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-forest/20 selection:text-ink">
       {/* Header */}
       <header
-        className={`absolute top-0 w-full z-50 transition-all duration-300 ${
-          hasBackground ? 'bg-background/90 backdrop-blur-md shadow-sm py-4 border-b border-border/20' : 'bg-transparent py-6'
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          hasBackground
+            ? 'bg-white/95 backdrop-blur-md shadow-sm py-4 border-b border-line'
+            : 'bg-transparent py-6 border-b border-white/20'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2 group">
-            <Heart className={`w-6 h-6 transition-colors ${hasBackground ? 'text-text-primary' : 'text-white group-hover:text-white/80'}`} />
-            <span className={`text-xl font-serif font-medium tracking-tight ${hasBackground ? 'text-text-primary' : 'text-white'}`}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group justify-self-start">
+            <Heart
+              className={`w-6 h-6 transition-colors ${hasBackground ? 'text-clay' : 'text-white'}`}
+              fill="currentColor"
+            />
+            <span
+              className={`text-xl font-serif font-medium tracking-tight ${
+                hasBackground ? 'text-ink' : 'text-white'
+              }`}
+            >
               ECHO Trips
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav (centered) */}
+          <nav className="hidden md:flex items-center gap-9 justify-self-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`group relative text-sm font-semibold tracking-wide transition-[color,transform] duration-300 hover:-translate-y-0.5 after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100 ${
-                  hasBackground
-                    ? 'text-earth-900 hover:text-accent'
-                    : 'text-white hover:text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]'
+                className={`text-[15px] font-medium transition-colors duration-200 ${
+                  hasBackground ? 'text-ink/80 hover:text-clay' : 'text-white hover:text-white/70'
                 }`}
               >
                 {link.name}
               </Link>
             ))}
+          </nav>
+
+          {/* Apply button */}
+          <div className="hidden md:flex justify-self-end">
             <Link
               to="/signup"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold bg-accent text-white transition-all duration-300 hover:opacity-95 hover:shadow-lg hover:shadow-accent/25 hover:scale-105 active:scale-100"
+              className="inline-flex items-center h-11 px-6 rounded-lg text-[15px] font-medium bg-clay text-white hover:bg-clay-dark transition-colors duration-300"
             >
-              Join a Trip
+              Apply to Join
             </Link>
-          </nav>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-2 -mr-2"
+            className="md:hidden p-2 -mr-2 justify-self-end"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X className={`w-6 h-6 ${hasBackground ? 'text-text-primary' : 'text-white'}`} />
+              <X className={`w-6 h-6 ${hasBackground ? 'text-ink' : 'text-white'}`} />
             ) : (
-              <Menu className={`w-6 h-6 ${hasBackground ? 'text-text-primary' : 'text-white'}`} />
+              <Menu className={`w-6 h-6 ${hasBackground ? 'text-ink' : 'text-white'}`} />
             )}
           </button>
         </div>
@@ -92,23 +107,23 @@ export default function Layout() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-background pt-24 px-6 pb-12 flex flex-col md:hidden"
+            className="fixed inset-0 z-40 bg-white pt-28 px-6 pb-12 flex flex-col md:hidden"
           >
             <nav className="flex flex-col gap-6 text-center">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className="text-2xl font-serif text-text-primary hover:text-text-primary transition-colors"
+                  className="text-2xl font-serif text-ink hover:text-clay transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
               <Link
                 to="/signup"
-                className="mt-8 px-8 py-4 bg-accent text-white rounded-full text-lg font-medium hover:opacity-90 inline-block mx-auto"
+                className="mt-8 inline-flex items-center justify-center h-12 px-8 bg-clay text-white rounded-lg text-lg font-medium hover:bg-clay-dark mx-auto transition-colors"
               >
-                Join a Trip
+                Apply to Join
               </Link>
             </nav>
           </motion.div>
@@ -120,67 +135,104 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <footer className="bg-background text-text-primary py-16 px-6 md:px-12 mt-auto">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="md:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-6 text-text-primary group">
-              <Heart className="w-6 h-6 text-text-primary" />
-              <span className="text-2xl font-serif font-medium tracking-tight">
-                ECHO Trips
-              </span>
-            </Link>
-            <p className="text-text-secondary max-w-sm leading-relaxed">
-              Connecting believers with communities in Kenya through Christ-centered service, cultural exchange, and practical ministry.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-text-primary font-medium mb-6 uppercase tracking-wider text-sm">Navigation</h4>
-            <ul className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Link to={link.path} className="text-text-secondary hover:text-text-primary transition-colors">
-                    {link.name}
+      {/* Footer — forest block, 32px radius, inset from the edges */}
+      <footer className="px-4 sm:px-6 pb-6 mt-20">
+        <div className="mx-auto max-w-[1320px] bg-forest text-white rounded-[32px] px-8 py-16 md:px-16 md:py-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+            {/* Tagline column */}
+            <div className="col-span-2 md:col-span-1">
+              <Link to="/" className="flex items-center gap-2 mb-5 group">
+                <Heart className="w-6 h-6 text-clay" fill="currentColor" />
+                <span className="text-xl font-serif font-medium tracking-tight text-white">ECHO Trips</span>
+              </Link>
+              {/* TODO(copy): founding year unknown — copy doc tagline ends "since [year]". */}
+              <p className="text-white/70 text-[15px] leading-[1.6] max-w-xs">
+                Mission trips to Kenya, working beside local churches.
+              </p>
+            </div>
+
+            {/* Pages */}
+            <div>
+              <h4 className="font-sans text-white font-semibold mb-5 text-[15px]">Pages</h4>
+              <ul className="flex flex-col gap-3">
+                {navLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link to={link.path} className="text-white/70 hover:text-white transition-colors text-[15px]">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Trips */}
+            <div>
+              <h4 className="font-sans text-white font-semibold mb-5 text-[15px]">Trips</h4>
+              <ul className="flex flex-col gap-3">
+                <li>
+                  <Link to="/signup" className="text-white/70 hover:text-white transition-colors text-[15px]">
+                    Apply to Join
                   </Link>
                 </li>
-              ))}
-            </ul>
+                <li>
+                  <Link to="/itinerary" className="text-white/70 hover:text-white transition-colors text-[15px]">
+                    Cost &amp; Schedule
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="text-white/70 hover:text-white transition-colors text-[15px]">
+                    See Upcoming Trips
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="font-sans text-white font-semibold mb-5 text-[15px]">Contact</h4>
+              <ul className="flex flex-col gap-3 text-[15px]">
+                <li>
+                  <a
+                    href="mailto:projectechokenya@gmail.com"
+                    className="text-white/70 hover:text-white transition-colors break-words"
+                  >
+                    projectechokenya@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+14786624515" className="text-white/70 hover:text-white transition-colors">
+                    +1 (478) 662-4515
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/echo.kenya/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/70 hover:text-white transition-colors"
+                  >
+                    Instagram
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h4 className="text-text-primary font-medium mb-6 uppercase tracking-wider text-sm">Connect</h4>
-            <ul className="flex flex-col gap-4">
-              <li>
-                <a
-                  href="https://www.instagram.com/echo.kenya/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary transition-colors"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-text-secondary hover:text-text-primary transition-colors">Facebook</a>
-              </li>
-              <li>
-                <Link to="/contact" className="text-text-secondary hover:text-text-primary transition-colors">Email Us</Link>
-              </li>
-            </ul>
+
+          {/* Bottom row: logo left, copyright right */}
+          <div className="mt-14 pt-8 border-t border-white/15 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-white/60">
+            <span className="font-serif text-lg text-white">ECHO Trips</span>
+            <p>
+              © {new Date().getFullYear()} ECHO Trips Kenya · Designed by{' '}
+              <a
+                href="https://openbrands.studio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                openbrands.studio
+              </a>
+            </p>
           </div>
-        </div>
-        <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-earth-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-secondary">
-          <p>© {new Date().getFullYear()} ECHO Trips Kenya. All rights reserved.</p>
-          <p>
-            Designed by Anan ·{' '}
-            <a
-              href="https://openbrands.studio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-text-primary font-medium hover:text-accent transition-colors"
-            >
-              openbrands.studio
-            </a>
-          </p>
         </div>
       </footer>
     </div>
