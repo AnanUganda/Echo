@@ -26,6 +26,12 @@ import trip04Img from '../assets/images/Trip-07-21 at 17.43.55 (4).webp';
 import trip05Img from '../assets/images/Trip-07-21 at 17.43.55.webp';
 import tripImg from '../assets/images/trip.webp';
 
+// Latest trip photos
+import smilingChildImg from '../assets/images/smiling-child.jpg';
+import giftBagsImg from '../assets/images/gift-bags.jpg';
+import fourFriendsImg from '../assets/images/four-friends.jpg';
+import teamPrayerImg from '../assets/images/team-prayer.jpg';
+
 interface Photo {
   src: string;
   alt: string;
@@ -37,6 +43,10 @@ interface Photo {
 // Captions kept as-is. The copy doc's suggested swaps need a [village]/[town]
 // placeholder, so per the brief those captions stay unchanged.
 const PHOTOS: Photo[] = [
+  { src: smilingChildImg, alt: 'A smiling child during a village visit', caption: 'A new friend', orientation: 'portrait' },
+  { src: giftBagsImg, alt: 'Handing out gift bags to children at a school', caption: 'Handing out gifts', orientation: 'portrait' },
+  { src: fourFriendsImg, alt: 'Four children smiling together by a village fence', caption: 'All smiles', orientation: 'landscape' },
+  { src: teamPrayerImg, alt: 'Team members praying together outside', caption: 'Praying together', orientation: 'portrait' },
   { src: equatorImg, alt: 'The ECHO team at the Kenya equator marker', caption: 'Crossing the equator', orientation: 'portrait' },
   { src: marketImg, alt: 'Visiting a local partner shop in the community', caption: 'Local partners', orientation: 'landscape' },
   { src: brianImg, alt: 'Sharing a meal together after a day of service', caption: 'Shared meals', orientation: 'portrait' },
