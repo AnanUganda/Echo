@@ -8,7 +8,7 @@ import GalleryStrip from '../components/GalleryStrip';
 import { Button, Card, Eyebrow, GreyPanel, SectionHeading } from '../components/ui';
 import { useSEO } from '../lib/useSEO';
 
-import heroImg from '../assets/images/hero2.webp';
+import heroImg from '../assets/images/newhero.jpeg';
 // About strip
 import aboutTallImg from '../assets/images/josh.webp';
 import aboutSmallImg from '../assets/images/Kids Ministry.webp';
@@ -146,7 +146,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.img
             src={heroImg}
-            alt="An ECHO mission team in the hills of Kenya"
+            alt="Mist over the Kenyan highlands and valley"
             style={prefersReducedMotion ? undefined : { y: heroY, willChange: 'transform' }}
             className="absolute inset-0 w-full h-[122%] -top-[11%] object-cover object-center"
           />
