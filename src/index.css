@@ -69,3 +69,41 @@
     color: var(--color-ink);
   }
 }
+
+/* ---- Card-fan carousel (card-fan-carousel.tsx) ----
+   The component positions each card with GSAP transforms; these rules give the
+   container its height and each card its centered box, size, and framing. */
+.fan-layout {
+  position: relative;
+  height: 38rem;
+}
+.fan-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 17rem;
+  height: 24rem;
+  margin-left: -8.5rem;
+  margin-top: -12rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: var(--color-panel);
+  box-shadow: 0 12px 40px rgba(19, 48, 43, 0.22);
+  will-change: transform;
+}
+@media (max-width: 1023px) {
+  .fan-layout { height: 34rem; }
+  .fan-card { width: 15rem; height: 21rem; margin-left: -7.5rem; margin-top: -10.5rem; }
+}
+@media (max-width: 767px) {
+  .fan-layout { height: 28rem; }
+  .fan-card { width: 13rem; height: 18rem; margin-left: -6.5rem; margin-top: -9rem; }
+}
+@media (max-width: 639px) {
+  .fan-layout { height: 26rem; }
+  .fan-card { width: 11rem; height: 15rem; margin-left: -5.5rem; margin-top: -7.5rem; border-radius: 1rem; }
+}
+@media (max-width: 479px) {
+  .fan-layout { height: 22rem; }
+  .fan-card { width: 9rem; height: 13rem; margin-left: -4.5rem; margin-top: -6.5rem; }
+}

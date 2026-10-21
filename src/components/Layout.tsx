@@ -134,9 +134,9 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Footer — forest block, 32px radius, inset from the edges */}
-      <footer className="px-4 sm:px-6 pb-6 mt-20">
-        <div className="mx-auto max-w-[1320px] bg-forest text-white rounded-[32px] px-8 py-16 md:px-16 md:py-20">
+      {/* Footer — full-width forest band, content centered */}
+      <footer className="bg-forest text-white mt-20">
+        <div className="mx-auto max-w-[1320px] px-6 md:px-12 py-16 md:py-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
             {/* Tagline column */}
             <div className="col-span-2 md:col-span-1">

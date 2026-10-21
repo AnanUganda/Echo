@@ -6,7 +6,7 @@ import { useSEO } from '../lib/useSEO';
 
 // Hero images
 import heroMainImg from '../assets/images/brian 2.webp';
-import heroSmallImg from '../assets/images/drumming.webp';
+import heroSmallImg from '../assets/images/team-prayer.jpg';
 // Our Story
 import storyImg from '../assets/images/Story.webp';
 // Meet the Team
@@ -58,7 +58,7 @@ export default function About() {
     <div className="flex flex-col bg-white">
       {/* ============ Hero (ref 02 style) ============ */}
       <section className="pt-36 pb-16 md:pt-44 md:pb-24 px-6 md:px-12 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-10 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,13 +81,13 @@ export default function About() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="grid grid-cols-5 gap-4"
+            className="grid grid-cols-5 gap-4 md:gap-5"
           >
             <div className="col-span-3 rounded-2xl overflow-hidden aspect-[4/5]">
               <img src={heroMainImg} alt="The ECHO team with local friends in Kenya" className="w-full h-full object-cover" />
             </div>
-            <div className="col-span-2 rounded-2xl overflow-hidden aspect-[3/5] self-center">
-              <img src={heroSmallImg} alt="Local drumming and worship" className="w-full h-full object-cover" />
+            <div className="col-span-2 rounded-2xl overflow-hidden aspect-[3/4] self-center">
+              <img src={heroSmallImg} alt="Team members praying together" className="w-full h-full object-cover" />
             </div>
           </motion.div>
         </div>
