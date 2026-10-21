@@ -76,6 +76,9 @@ const CTA_FLOATS = [
 ];
 
 export default function Home() {
+  // TODO(copy): placeholder testimonials. Sarah Jenkins, David Chen and Emily
+  // Martinez are sample quotes — replace with real participant testimonials
+  // (and remove the "Sample testimonials" note below) before launch.
   const TESTIMONIALS = [
     {
       id: 1,
@@ -276,8 +279,12 @@ export default function Home() {
             eyebrow="Stories from past teams"
             title="In their words"
             intro="Most people come expecting to help. Many go home saying they learned more than they gave."
-            className="mb-14 md:mb-16"
+            className="mb-5"
           />
+          {/* Placeholder notice — remove once real quotes are in. */}
+          <p className="text-center text-[13px] text-body/70 italic mb-12 md:mb-14">
+            Sample testimonials — placeholder text, to be replaced with real participant quotes.
+          </p>
 
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
