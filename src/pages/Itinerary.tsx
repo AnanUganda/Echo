@@ -92,7 +92,7 @@ export default function Itinerary() {
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="w-full mx-auto px-6 md:px-12 mb-20 md:mb-28"
+        className="max-w-6xl mx-auto px-6 md:px-12 mb-20 md:mb-28"
       >
         <div className="relative h-[320px] md:h-[500px] lg:h-[580px] rounded-2xl overflow-hidden">
           <img src={itineraryHero} alt="ECHO mission trip landscape in Kenya" className="w-full h-full object-cover" />
@@ -100,7 +100,7 @@ export default function Itinerary() {
       </motion.div>
 
       {/* Cost — 4 panel-grey cards */}
-      <div className="w-full mx-auto px-6 md:px-12 mb-24 md:mb-28">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-28">
         <SectionHeading
           eyebrow="What it costs"
           title="$1,500 plus airfare"
@@ -119,7 +119,7 @@ export default function Itinerary() {
       </div>
 
       {/* Daily schedule — accordion */}
-      <div className="w-full mx-auto px-6 md:px-12 mb-24 md:mb-28">
+      <div className="max-w-4xl mx-auto px-6 md:px-12 mb-24 md:mb-28">
         <SectionHeading
           eyebrow="Daily schedule"
           title="Day by day"
@@ -130,7 +130,7 @@ export default function Itinerary() {
       </div>
 
       {/* Travel tips — accordion beside a photo + forest contact card (refs 08, 07) */}
-      <div className="w-full mx-auto px-6 md:px-12 mb-20">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 mb-20">
         <SectionHeading eyebrow="Before you go" title="Travel tips" align="left" className="mb-10 md:mb-12" />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           <div className="flex flex-col gap-6">
