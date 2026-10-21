@@ -154,7 +154,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none" />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12">
+        <div className="relative z-10 w-full w-full mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -185,7 +185,7 @@ export default function Home() {
 
       {/* ===================== About strip (ref 02) ===================== */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-white">
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
             {/* Tall photo (left) */}
             <motion.div
@@ -274,7 +274,7 @@ export default function Home() {
 
       {/* ===================== Stories from past teams (ref 06) ===================== */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full mx-auto">
           <SectionHeading
             eyebrow="Stories from past teams"
             title="In their words"
@@ -358,7 +358,7 @@ export default function Home() {
 
       {/* ===================== Closing CTA (ref 09) ===================== */}
       <section className="px-4 sm:px-6 py-16 md:py-24">
-        <div className="relative mx-auto max-w-[1320px] bg-mist rounded-[32px] px-6 py-20 md:px-12 md:py-28 text-center overflow-hidden">
+        <div className="relative mx-auto w-full bg-mist rounded-[32px] px-6 py-20 md:px-12 md:py-28 text-center overflow-hidden">
           {/* Floating trip photos — desktop only */}
           <div aria-hidden="true" className="hidden lg:block">
             {CTA_FLOATS.map((f, i) => (

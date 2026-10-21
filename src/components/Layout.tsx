@@ -49,7 +49,7 @@ export default function Layout() {
             : 'bg-transparent py-6 border-b border-white/20'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center">
+        <div className="w-full mx-auto px-6 md:px-12 grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center">
           {/* Logo */}
           <Link to="/" className="justify-self-start inline-flex items-center" aria-label="ECHO Trips home">
             <img
@@ -136,7 +136,7 @@ export default function Layout() {
 
       {/* Footer — full-width forest band, content centered */}
       <footer className="bg-forest text-white mt-20">
-        <div className="mx-auto max-w-[1320px] px-6 md:px-12 py-16 md:py-20">
+        <div className="mx-auto w-full px-6 md:px-12 py-16 md:py-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
             {/* Tagline column */}
             <div className="col-span-2 md:col-span-1">

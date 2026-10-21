@@ -29,7 +29,7 @@ const CARDS: CardItem[] = Object.entries(imageModules)
 export default function GalleryStrip() {
   return (
     <section className="py-20 md:py-28 px-6 md:px-12 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-2 md:mb-4">
           <Eyebrow className="mb-4">In the field</Eyebrow>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-[44px] text-ink leading-[1.05] mb-4">

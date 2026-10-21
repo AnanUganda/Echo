@@ -15,7 +15,7 @@ export default function GreyPanel({ children, className = '', innerClassName = '
   return (
     <section id={id} className={`px-4 sm:px-6 ${className}`}>
       <div
-        className={`mx-auto max-w-[1320px] bg-panel rounded-[32px] px-6 py-16 md:px-12 md:py-20 ${innerClassName}`}
+        className={`mx-auto w-full bg-panel rounded-[32px] px-6 py-16 md:px-12 md:py-20 ${innerClassName}`}
       >
         {children}
       </div>

@@ -58,7 +58,7 @@ export default function About() {
     <div className="flex flex-col bg-white">
       {/* ============ Hero (ref 02 style) ============ */}
       <section className="pt-36 pb-16 md:pt-44 md:pb-24 px-6 md:px-12 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-10 lg:gap-16 items-center">
+        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-10 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export default function About() {
 
       {/* ============ How ECHO started ============ */}
       <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +142,7 @@ export default function About() {
 
       {/* ============ Our mission ============ */}
       <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full mx-auto">
           <SectionHeading
             eyebrow="Our mission"
             title="Our mission"
@@ -172,7 +172,7 @@ export default function About() {
 
       {/* ============ Meet the team ============ */}
       <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full mx-auto">
           <SectionHeading
             eyebrow="Meet the team"
             title="The People Behind ECHO"
@@ -211,7 +211,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="relative mx-auto max-w-[1320px] rounded-[32px] overflow-hidden bg-forest px-8 py-16 md:px-16 md:py-24 text-center"
+          className="relative mx-auto w-full rounded-[32px] overflow-hidden bg-forest px-8 py-16 md:px-16 md:py-24 text-center"
         >
           <div aria-hidden="true" className="absolute -bottom-16 -right-10 w-96 h-96 rounded-full bg-forest-2/60 blur-3xl" />
           <div className="relative">

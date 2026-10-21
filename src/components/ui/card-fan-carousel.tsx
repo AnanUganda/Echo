@@ -41,11 +41,11 @@ function getResponsiveMultiplier(width: number) {
 function getHeightMultiplier(width: number) {
   // Ideal layout heights (in px at 16px root) matching the CSS breakpoints
   let idealPx: number;
-  if (width < 480) idealPx = 22 * 16;       // 352px
-  else if (width < 640) idealPx = 26 * 16;  // 416px
-  else if (width < 768) idealPx = 28 * 16;  // 448px
-  else if (width < 1024) idealPx = 34 * 16; // 544px
-  else idealPx = 38 * 16;                    // 608px
+  if (width < 480) idealPx = 24 * 16;
+  else if (width < 640) idealPx = 28 * 16;
+  else if (width < 768) idealPx = 34 * 16;
+  else if (width < 1024) idealPx = 42 * 16;
+  else idealPx = 47 * 16;
 
   const available = window.innerHeight * 0.7; // 70vh budget
   if (available >= idealPx) return 1;
@@ -66,8 +66,9 @@ function getSlotConfig(totalCards: number, slot: number) {
   };
 }
 
+// Site-themed controls: ink icon on white with a hairline border, forest on hover.
 const ARROW_CLASSES =
-  "relative flex items-center justify-center rounded-full border-[1.5px] border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 backdrop-blur-[16px] text-black/40 dark:text-white/55 cursor-pointer shrink-0 z-30 outline-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-black/25 dark:hover:border-white/25 hover:text-black/70 dark:hover:text-white/80 active:opacity-70 transition-colors duration-300 before:content-[''] before:absolute before:inset-[3px] before:rounded-full before:border before:border-black/[0.04] dark:before:border-white/[0.04] before:pointer-events-none";
+  "flex items-center justify-center rounded-full border border-line bg-white text-ink shadow-sm cursor-pointer shrink-0 z-30 outline-none hover:bg-forest hover:text-white hover:border-forest active:opacity-80 transition-colors duration-300";
 
 export default function SocialCards({ cards }: SocialCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);

@@ -34,7 +34,7 @@ export default function Contact() {
 
   return (
     <div className="bg-white min-h-screen pt-32 md:pt-40 pb-24">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="w-full mx-auto px-6 md:px-12">
         <SectionHeading
           eyebrow="Contact"
           title="Get in Touch"

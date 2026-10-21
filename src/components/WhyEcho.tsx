@@ -55,7 +55,7 @@ export default function WhyEcho() {
 
   return (
     <section className="py-24 md:py-32 px-6 md:px-12 bg-white">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full mx-auto">
         {/* Header: left-aligned heading, intro on the right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-end mb-12 md:mb-16">
           <div>
