@@ -55,7 +55,7 @@ export default function Layout() {
             <img
               src={echoLogo}
               alt="ECHO Trips"
-              className={`h-8 md:h-9 w-auto transition ${darkContent ? '' : 'brightness-0 invert'}`}
+              className={`h-10 md:h-12 w-auto transition ${darkContent ? '' : 'brightness-0 invert'}`}
             />
           </Link>
 
