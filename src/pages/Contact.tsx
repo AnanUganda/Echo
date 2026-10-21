@@ -5,23 +5,31 @@ import type { FormEvent } from 'react';
 
 import { SectionHeading } from '../components/ui';
 import { useSEO } from '../lib/useSEO';
+import { submitForm } from '../lib/submitForm';
 
 const inputClass =
   'px-4 h-12 bg-white border border-line rounded-lg text-ink placeholder:text-body/60 focus:outline-none focus:border-clay focus:ring-2 focus:ring-clay/30 transition-all';
 
 export default function Contact() {
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   useSEO(
     'Contact ECHO Trips | Kenya Mission Trips',
     'Questions about a trip, church partnerships, or giving? Email or call the ECHO Trips team.',
   );
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const data = Object.fromEntries(Array.from(fd.entries(), ([k, v]) => [k, String(v)]));
     setFormStatus('submitting');
-    // Simulate API call
-    setTimeout(() => setFormStatus('success'), 1500);
+    try {
+      await submitForm('contact', data);
+      setFormStatus('success');
+    } catch {
+      setFormStatus('error');
+    }
   };
 
   return (
@@ -94,22 +102,22 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="firstName" className="text-sm font-medium text-ink">First Name</label>
-                    <input type="text" id="firstName" required className={inputClass} />
+                    <input type="text" id="firstName" name="firstName" required className={inputClass} />
                   </div>
                   <div className="flex flex-col gap-2">
                     <label htmlFor="lastName" className="text-sm font-medium text-ink">Last Name</label>
-                    <input type="text" id="lastName" required className={inputClass} />
+                    <input type="text" id="lastName" name="lastName" required className={inputClass} />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="email" className="text-sm font-medium text-ink">Email Address</label>
-                  <input type="email" id="email" required className={inputClass} />
+                  <input type="email" id="email" name="email" required className={inputClass} />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="subject" className="text-sm font-medium text-ink">Subject</label>
-                  <select id="subject" className={inputClass}>
+                  <select id="subject" name="subject" className={inputClass}>
                     <option>General Inquiry</option>
                     <option>Trip Information</option>
                     <option>Church Partnership</option>
@@ -121,12 +129,18 @@ export default function Contact() {
                   <label htmlFor="message" className="text-sm font-medium text-ink">Message</label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={5}
                     required
                     className="px-4 py-3 bg-white border border-line rounded-lg text-ink placeholder:text-body/60 focus:outline-none focus:border-clay focus:ring-2 focus:ring-clay/30 transition-all resize-none"
                   ></textarea>
                 </div>
 
+                {formStatus === 'error' && (
+                  <p className="text-sm text-red-600">
+                    Something went wrong sending your message. Please email us at projectechokenya@gmail.com.
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={formStatus === 'submitting'}
