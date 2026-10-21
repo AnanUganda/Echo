@@ -1,10 +1,11 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Calendar, CheckCircle2 } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
 
 import { SectionHeading } from '../components/ui';
 import { useSEO } from '../lib/useSEO';
+import { submitForm } from '../lib/submitForm';
 
 const TRIPS = [
   { id: 'april-2027', name: 'Kenya Mission Trip', date: 'April 16 - April 26, 2027', status: 'Open' },
@@ -35,21 +36,27 @@ export default function Signup() {
   const [dob, setDob] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [parentsName, setParentsName] = useState('');
-  const [photoName, setPhotoName] = useState('');
-  
-  const formRef = useRef<HTMLFormElement>(null);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
 
   const handleNext = (e: FormEvent) => {
     e.preventDefault();
     if (step < 3) setStep(step + 1);
   };
 
-  const submitForm = (e: FormEvent) => {
+  const handleFinalSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (formRef.current) {
-      formRef.current.submit();
-    }
     setStep(4);
+    const trip =
+      selectedTrip === 'undecided'
+        ? 'Undecided'
+        : TRIPS.find((t) => t.id === selectedTrip)?.name || selectedTrip;
+    // Fire-and-forget to the Google Sheet endpoint; the success screen and the
+    // Stripe deposit step show regardless (delivery is confirmed by the row/email).
+    void submitForm(
+      'application',
+      { trip, firstName, lastName, email, whatsapp, dob, parentsName, address, city, state, zip, church, reason, experience },
+      photoFile,
+    );
   };
 
   return (
@@ -211,7 +218,7 @@ export default function Signup() {
 
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-medium text-text-primary">A photo of yourself</label>
-                  <input type="file" accept="image/*" required onChange={(e) => setPhotoName(e.target.files?.[0]?.name || '')} className="px-4 py-3 bg-white border border-line rounded-lg focus:ring-2 focus:ring-clay/30 focus:border-clay outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-terracotta/10 file:text-terracotta hover:file:bg-terracotta/20" />
+                  <input type="file" accept="image/*" required onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)} className="px-4 py-3 bg-white border border-line rounded-lg focus:ring-2 focus:ring-clay/30 focus:border-clay outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-clay/10 file:text-clay hover:file:bg-clay/20" />
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -247,7 +254,7 @@ export default function Signup() {
             )}
 
             {step === 3 && (
-              <form onSubmit={submitForm} className="animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col gap-6">
+              <form onSubmit={handleFinalSubmit} className="animate-in fade-in slide-in-from-right-8 duration-500 flex flex-col gap-6">
                 <h2 className="text-2xl font-serif text-text-primary mb-2">Faith & Background</h2>
                 
                 <div className="flex flex-col gap-2">
@@ -316,39 +323,6 @@ export default function Signup() {
             )}
           </div>
         </motion.div>
-        
-        {/* Hidden Form for Zoho CRM Integration */}
-        <iframe name="zoho_iframe" id="zoho_iframe" style={{ display: 'none' }}></iframe>
-        <form 
-          ref={formRef}
-          id="webform7506073000000612477"
-          name="WebToLeads7506073000000612477"
-          action="https://crm.zoho.com/crm/WebToLeadForm" 
-          method="POST" 
-          target="zoho_iframe" 
-          className="hidden"
-          acceptCharset="UTF-8"
-        >
-          <input type="hidden" name="xnQsjsdp" value="94d2aaaf008055fa774fe068b7d0b34570aedbeb6c00933c6b58f692466ff7e4" />
-          <input type="hidden" name="zc_gad" value="" />
-          <input type="hidden" name="xmIwtLD" value="f6dd369d03db9fafd137d28785b4c29adfe0ab0eacc537b38f410dba38ef8c4c1776208b4b7402e94ba9f20d830e5eaa" />
-          <input type="hidden" name="actionType" value="TGVhZHM=" />
-          <input type="hidden" name="returnURL" value="https://openbrands.studio" />
-          <input type="hidden" name="aG9uZXlwb3Q" value="" />
-          
-          <input type="hidden" name="Company" value={selectedTrip === 'undecided' ? 'Undecided' : TRIPS.find(t => t.id === selectedTrip)?.name || selectedTrip} />
-          <input type="hidden" name="First Name" value={firstName} />
-          <input type="hidden" name="Last Name" value={lastName} />
-          <input type="hidden" name="Email" value={email} />
-          <input type="hidden" name="Mobile" value={whatsapp} />
-          <input type="hidden" name="Address - Country / Region" value="United States" />
-          <input type="hidden" name="Address - City" value={city} />
-          <input type="hidden" name="Address - Zip / Postal Code" value={zip} />
-          <input type="hidden" name="Address - Street Address" value={address} />
-          {/* Combine church, state, and reasons into the Description field since it's the only large text field mapped */}
-          <input type="hidden" name="Description" value={`Date of Birth: ${dob}\nWhatsApp: ${whatsapp}\nParents' Name: ${parentsName}\nPhoto File Attached: ${photoName}\nState: ${state}\nChurch: ${church}\nReason: ${reason}\nExperience: ${experience}`} />
-        </form>
-        
       </div>
     </div>
   );
