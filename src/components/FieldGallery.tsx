@@ -30,7 +30,7 @@ const COL_2: Photo[] = [
 
 const COL_3: Photo[] = [
   { src: drummingImg, alt: 'Local drumming during a cultural celebration' },
-  { src: giraffeImg, alt: 'A giraffe on the Masai Mara plains' },
+  { src: giraffeImg, alt: 'A giraffe on the Maasai Mara plains' },
   { src: walkingImg, alt: 'Walking alongside local friends' },
 ];
 

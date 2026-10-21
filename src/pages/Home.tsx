@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import WhyEcho from '../components/WhyEcho';
 import GalleryStrip from '../components/GalleryStrip';
 import { Button, Card, Eyebrow, GreyPanel, SectionHeading } from '../components/ui';
+import { useSEO } from '../lib/useSEO';
 
 import heroImg from '../assets/images/hero2.webp';
 // About strip
@@ -98,6 +99,11 @@ export default function Home() {
       image: testimonialImg3,
     },
   ];
+
+  useSEO(
+    'Mission Trips to Kenya with Local Churches | ECHO Trips',
+    "Serve with Kenyan churches on an 11-day mission trip: kids' ministry, village and school visits, worship, and a Maasai Mara safari.",
+  );
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);

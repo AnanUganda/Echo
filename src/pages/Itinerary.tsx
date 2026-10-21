@@ -1,305 +1,167 @@
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+
+import { Accordion, Eyebrow, SectionHeading } from '../components/ui';
+import type { AccordionItem } from '../components/ui';
+import { useSEO } from '../lib/useSEO';
+
 import itineraryHero from '../assets/images/Echo.webp';
+import tipsImg from '../assets/images/Safari image.webp';
+
+const COSTS = [
+  {
+    title: 'Airfare',
+    amount: '$1,000 – $1,500',
+    body: 'Round-trip flights to Nairobi usually cost $1,000–$1,500. You book your own ticket about 3 months before the trip. Before you book, send Sterling Kurtz a screenshot of the flight you plan to buy.',
+  },
+  {
+    title: 'Team contribution',
+    amount: '$1,500',
+    body: '$1,500 covers your lodging, ground transport, breakfasts, drinking water, and the Maasai Mara safari. A $50 non-refundable deposit holds your spot. The remaining $1,450 is due 3 months before the trip.',
+  },
+  {
+    title: 'Meals',
+    amount: '~$10 / meal',
+    body: "Lunch and dinner aren't included. Plan on about $10 a meal. Some people spend more; many spend less.",
+  },
+  {
+    title: 'Discretionary',
+    amount: 'Extra cash',
+    body: 'Bring extra cash for souvenirs, gifts, or to help someone in need.',
+  },
+];
+
+const DAYS = [
+  { day: 'Day 1', title: 'Arrival in Kenya', description: 'Evening arrival at Jomo Kenyatta International Airport (JKIA), Nairobi.' },
+  { day: 'Day 2', title: 'Travel to Nakuru & kids class', description: 'Morning travel to Nakuru, afternoon kids class.' },
+  { day: 'Day 3', title: 'Local church & fellowship', description: 'Worship at a local church in Nakuru. Evening supper with the missionary community.' },
+  { day: 'Day 4', title: 'Travel to Maralal & village ministry', description: 'Morning travel to Maralal, spend the day with the villagers in homes & school.' },
+  { day: 'Day 5', title: 'Amaya & market day', description: 'Market day in Amaya, plus time with the community.' },
+  { day: 'Day 6', title: 'Sports outreach & travel to Nakuru', description: 'Morning volleyball with locals in Maralal, afternoon travel to Nakuru.' },
+  { day: 'Day 7', title: 'Special needs home & youth fellowship', description: 'Morning at a special needs home, afternoon football (soccer) game, evening supper and volleyball with missionary youth.' },
+  { day: 'Day 8', title: 'Shopping & travel to Maasai Mara', description: 'Souvenir shopping, lunch in Nakuru, afternoon travel to Maasai Mara.' },
+  { day: 'Day 9', title: 'Maasai Mara safari', description: 'Maasai Mara game drives all day, evening return to Nakuru.' },
+  { day: 'Day 10', title: 'Church at CBF Maruk & Kurtz home', description: "Church at CBF Maruk, afternoon kids' class, evening at the Kurtz home." },
+  { day: 'Day 11', title: 'Nairobi departure', description: 'Morning drive to Nairobi and airport drop-offs for evening flights.' },
+];
+
+const TIPS = [
+  { title: 'eTA', content: "You need an eTA (Electronic Travel Authorization) to enter Kenya. We'll send step-by-step help about 3 weeks before the trip." },
+  { title: 'Currency', content: "We'll help you change money into Kenyan shillings. Clean, crisp $20 and $100 bills exchange best." },
+  { title: 'Restrooms', content: "Many restrooms don't stock toilet paper, so carry tissues (we'll give you some when you arrive). Wipes and hand sanitizer help too." },
+  { title: 'Washcloths', content: 'Most places we stay don’t have washcloths. Pack one if you use them.' },
+  { title: 'Malaria', content: 'Ask your doctor about antimalarial medication before the trip, and pack mosquito repellent.' },
+  { title: 'Language', content: 'Swahili is the everyday language, but most people in towns and high schools also speak English.' },
+  { title: 'Culture', content: 'Come curious. Ask questions, make friends, and answer people’s questions about you openly. Kenyans will be as interested in your life as you are in theirs.' },
+];
 
 export default function Itinerary() {
-  const days = [
-    {
-      day: 'Day 1',
-      date: 'Friday',
-      title: 'Arrival in Kenya',
-      description: 'Evening arrival in Kenya at JKIA airport.',
-    },
-    {
-      day: 'Day 2',
-      date: 'Saturday',
-      title: 'Travel to Nakuru & Kids Class',
-      description: 'Morning travel to Nakuru, afternoon kids class.',
-    },
-    {
-      day: 'Day 3',
-      date: 'Sunday',
-      title: 'Local Church & Fellowship',
-      description: 'Visit local church in Nakuru, evening supper for all missionaries.',
-    },
-    {
-      day: 'Day 4',
-      date: 'Monday',
-      title: 'Travel to Maralal & Village Ministry',
-      description: 'Morning travel to Maralal, spend the day with the villagers in homes & school.',
-    },
-    {
-      day: 'Day 5',
-      date: 'Tuesday',
-      title: 'Amaya & Market Day',
-      description: 'Spend the day in Amaya during market day & other activities.',
-    },
-    {
-      day: 'Day 6',
-      date: 'Wednesday',
-      title: 'Sports Outreach & Travel to Nakuru',
-      description: 'Morning volleyball with locals in Maralal, afternoon travel to Nakuru.',
-    },
-    {
-      day: 'Day 7',
-      date: 'Thursday',
-      title: 'Special Needs Home & Youth Fellowship',
-      description: 'Morning special needs home, afternoon football game, evening supper & volleyball with missionary youth.',
-    },
-    {
-      day: 'Day 8',
-      date: 'Friday',
-      title: 'Shopping & Travel to Masai Mara',
-      description: 'Souvenir shopping, lunch in Nakuru, afternoon travel to Masai Mara.',
-    },
-    {
-      day: 'Day 9',
-      date: 'Saturday',
-      title: 'Masai Mara Safari',
-      description: 'Masai Mara game drives all day, evening return to Nakuru.',
-    },
-    {
-      day: 'Day 10',
-      date: 'Sunday',
-      title: 'Church at CBF Maruk & Kurtz Home',
-      description: 'Church in CBF Maruk, afternoon kids class, evening at Kurtz’s home.',
-    },
-    {
-      day: 'Day 11',
-      date: 'Monday',
-      title: 'Nairobi Departure',
-      description: 'Morning departure for Nairobi, Airport drop offs (evening flights).',
-    },
-  ];
+  useSEO(
+    'Kenya Mission Trip Cost & Itinerary | ECHO Trips',
+    "$1,500 plus airfare. See the day-by-day schedule, what's included, and travel tips for our April 2027 mission trip to Kenya.",
+  );
+
+  const scheduleItems: AccordionItem[] = DAYS.map((d) => ({
+    id: d.day,
+    title: d.day,
+    summary: d.title,
+    content: d.description,
+  }));
+
+  const tipItems: AccordionItem[] = TIPS.map((t) => ({ id: t.title, title: t.title, content: t.content }));
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24">
-      {/* 1 & 2. Heading & Subheading */}
+    <div className="bg-white pt-32 md:pt-40 pb-8">
+      {/* Heading */}
       <div className="max-w-3xl mx-auto px-6 md:px-12 mb-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="h-px w-8 bg-accent" aria-hidden="true" />
-            <span className="text-xs font-semibold tracking-[0.25em] text-accent uppercase">Trip Details</span>
-            <span className="h-px w-8 bg-accent" aria-hidden="true" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-serif text-text-primary mb-4">
-            Proposed Itinerary & Logistics
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <Eyebrow className="mb-4">Trip details</Eyebrow>
+          <h1 className="font-serif text-4xl md:text-5xl text-ink mb-4 leading-[1.06]">
+            Trip cost, schedule, and travel tips
           </h1>
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed">
-            Everything you need to know to prepare for your journey, from travel financial commitments to our trip schedule and essential travel tips.
+          <p className="text-body text-[17px] leading-[1.6]">
+            Next trip: April 16&ndash;26, 2027 (11 days). Here's what it costs, what each day looks like, and how
+            to get ready.
           </p>
         </motion.div>
       </div>
 
-      {/* 3. Hero Image Centered */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.96 }}
+      {/* Hero image */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="max-w-6xl mx-auto px-6 md:px-12 mb-20"
+        transition={{ duration: 0.7, delay: 0.15 }}
+        className="max-w-6xl mx-auto px-6 md:px-12 mb-20 md:mb-28"
       >
-        <div className="relative h-[380px] md:h-[540px] lg:h-[620px] rounded-3xl overflow-hidden shadow-2xl border border-earth-500/10">
-          <img 
-            src={itineraryHero} 
-            alt="ECHO Mission Trip Landscape" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+        <div className="relative h-[320px] md:h-[500px] lg:h-[580px] rounded-2xl overflow-hidden">
+          <img src={itineraryHero} alt="ECHO mission trip landscape in Kenya" className="w-full h-full object-cover" />
         </div>
       </motion.div>
 
-      {/* 4. Price Breakdown (No cards, creative editorial layout) */}
-      <div className="max-w-5xl mx-auto px-6 md:px-12 mb-28">
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="border-b border-earth-500/20 pb-6 mb-12 text-center md:text-left">
-            <h2 className="text-3xl font-serif text-text-primary">Expected Cost</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-            {/* Airfare Block */}
-            <div className="space-y-4 relative">
-              <div className="flex items-baseline justify-between border-b border-earth-500/15 pb-4">
-                <h3 className="text-2xl font-serif text-text-primary">Round Trip Airfare</h3>
-                <span className="text-2xl md:text-3xl font-serif text-terracotta font-medium">$1,000 – $1,500</span>
-              </div>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                Round trip airfare to Kenya is typically $1,000 - $1,500. Each person is responsible for buying their own ticket.
-              </p>
-              <ul className="space-y-3 text-sm text-text-secondary pt-2">
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-terracotta mt-2 shrink-0" />
-                  <span>Tickets should be purchased <strong>3 months before trip</strong>.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-terracotta mt-2 shrink-0" />
-                  <span><strong className="text-text-primary">Action required:</strong> Message Sterling Kurtz with a screenshot of the itinerary you want to buy <em>BEFORE</em> you reserve the flights.</span>
-                </li>
-              </ul>
+      {/* Cost — 4 panel-grey cards */}
+      <div className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-28">
+        <SectionHeading
+          eyebrow="What it costs"
+          title="$1,500 plus airfare"
+          align="left"
+          className="mb-10 md:mb-12"
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {COSTS.map((cost) => (
+            <div key={cost.title} className="bg-panel rounded-2xl p-7 flex flex-col h-full">
+              <h3 className="font-serif text-xl text-ink mb-1">{cost.title}</h3>
+              <span className="text-clay font-sans font-semibold text-[15px] mb-4">{cost.amount}</span>
+              <p className="text-body text-[14px] leading-[1.6]">{cost.body}</p>
             </div>
-
-            {/* Team Contribution Block */}
-            <div className="space-y-4 relative">
-              <div className="flex items-baseline justify-between border-b border-earth-500/15 pb-4">
-                <h3 className="text-2xl font-serif text-text-primary">Team Contribution</h3>
-                <span className="text-2xl md:text-3xl font-serif text-terracotta font-medium">$1,500</span>
-              </div>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                Each team member will need to send $1,500 to cover their lodging, ground transportation, breakfast, water, Masai Mara safari, etc.
-              </p>
-              <ul className="space-y-3 text-sm text-text-secondary pt-2">
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-terracotta mt-2 shrink-0" />
-                  <span><strong>$50 (non-refundable)</strong> deposit is required immediately.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-terracotta mt-2 shrink-0" />
-                  <span>Remaining <strong>$1,450 balance</strong> should be sent 3 months before trip.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Additional Cash Guidance & Discretionary Spending */}
-          <div className="mt-12 pt-8 border-t border-earth-500/15 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-2">
-              <h4 className="text-lg font-serif text-text-primary">Meals Cash Guidance</h4>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Please carry extra cash for lunch and dinner. We suggest <strong>$10 for each meal</strong>. Some use more; many need less.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-lg font-serif text-text-primary">Discretionary Spending</h4>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Keep in mind you may wish to purchase souvenirs, gifts, or help someone in need, so extra cash is encouraged for those items.
-              </p>
-            </div>
-          </div>
-        </motion.section>
+          ))}
+        </div>
       </div>
 
-      {/* 5. Itinerary Section */}
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 mb-28">
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="text-center mb-16">
-            <span className="text-xs font-semibold tracking-[0.2em] text-accent uppercase block mb-1">Daily Schedule</span>
-            <h2 className="text-3xl md:text-4xl font-serif text-text-primary mb-4">Proposed Itinerary</h2>
-            <p className="text-text-secondary text-sm md:text-base max-w-xl mx-auto">
-              Our proposed schedule for the trip duration from arrival to departure.
-            </p>
-          </div>
+      {/* Daily schedule — accordion */}
+      <div className="max-w-4xl mx-auto px-6 md:px-12 mb-24 md:mb-28">
+        <SectionHeading
+          eyebrow="Daily schedule"
+          title="Day by day"
+          intro="The plan from arrival to departure. Details may shift once we're on the ground."
+          className="mb-10 md:mb-12"
+        />
+        <Accordion items={scheduleItems} defaultOpen={0} />
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {days.map((item, index) => (
-              <div 
-                key={index} 
-                className="bg-surface/60 hover:bg-surface p-8 rounded-2xl border border-earth-500/10 hover:border-earth-500/20 transition-all duration-300 flex flex-col justify-between"
+      {/* Travel tips — accordion beside a photo + forest contact card (refs 08, 07) */}
+      <div className="max-w-6xl mx-auto px-6 md:px-12 mb-20">
+        <SectionHeading eyebrow="Before you go" title="Travel tips" align="left" className="mb-10 md:mb-12" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+          <div className="flex flex-col gap-6">
+            <div className="rounded-2xl overflow-hidden aspect-[4/3]">
+              <img src={tipsImg} alt="On safari in Kenya" className="w-full h-full object-cover" />
+            </div>
+            {/* Forest "Have a question?" card */}
+            <div className="bg-forest rounded-2xl p-8">
+              <h3 className="font-serif text-2xl text-white mb-2">Have a question?</h3>
+              <p className="text-white/70 text-[15px] leading-[1.6] mb-5">
+                We're glad to help you prepare. Reach out and we'll get back to you soon.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 text-white font-semibold text-[15px] underline underline-offset-4 decoration-1 hover:text-peach transition-colors"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-bold tracking-widest text-accent uppercase">{item.day}</span>
-                    <span className="text-xs text-text-secondary font-medium px-2.5 py-1 rounded-full bg-background border border-earth-500/10">{item.date}</span>
-                  </div>
-                  <h3 className="text-lg font-serif text-text-primary mb-2">{item.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">{item.description}</p>
-                </div>
-              </div>
-            ))}
+                Ask Us a Question
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-        </motion.section>
+
+          <Accordion items={tipItems} defaultOpen={0} />
+        </div>
       </div>
 
-      {/* 6. Tips for the Trip */}
-      <div className="max-w-5xl mx-auto px-6 md:px-12 mb-24">
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="border-b border-earth-500/20 pb-6 mb-12 text-center md:text-left">
-            <span className="text-xs font-semibold tracking-[0.2em] text-terracotta uppercase block mb-1">Preparation & Advice</span>
-            <h2 className="text-3xl font-serif text-text-primary">Additional Tips & Info</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">ETA Requirement</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                You must have an ETA to enter Kenya. You will receive information around 3 weeks before the trip to help you apply for your ETA.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">Currency Exchange</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                We will help you exchange your money to Kenyan currency. Clean, crisp $20 bills or $100 bills work best for exchange.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">Restroom & Hygiene Supplies</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Always keep toilet paper or tissues with you (provided upon arrival). Many restrooms do not have toilet paper. Wipes and hand sanitizer are also helpful.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">Washcloths Notice</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Accommodations in Kenya likely will not have washcloths. You can bring your own if you need them.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">Malaria & Repellant</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                It would be advised to take the preventative malaria treatment before you come. Mosquito repellant could also be helpful.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">Language</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Most people in towns and high schools can speak English although Swahili is more commonly used.
-              </p>
-            </div>
-
-            <div className="md:col-span-2 p-6 rounded-2xl bg-surface/50 border border-earth-500/10 space-y-2">
-              <h3 className="text-lg font-serif text-text-primary">Cultural Consideration</h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Please be considerate of the Kenyan culture. Try to understand their way of thinking, ask questions, interact with them, make friends with them, and be open and honest with their questions for you.
-              </p>
-            </div>
-          </div>
-        </motion.section>
-      </div>
-
-      {/* Closing Prayer */}
+      {/* Closing line */}
       <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="pt-12 border-t border-earth-500/15"
-        >
-          <p className="text-xl font-serif text-text-primary italic">
-            "Pray that God would guide and direct us as we plan these trips!"
-          </p>
-        </motion.div>
+        <div className="pt-12 border-t border-line">
+          <p className="font-serif text-xl text-ink italic">Please pray for us as we plan these trips.</p>
+        </div>
       </div>
     </div>
   );
